@@ -1,206 +1,199 @@
-```html
+html
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>🐾 Редактор Тамагочи</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0f0c1a;--panel:#1a1628;--card:#231d35;--inp:#2a2240;
-  --pu:#7c3aed;--pu2:#a78bfa;--pk:#ec4899;--gr:#22c55e;
-  --ye:#f59e0b;--re:#ef4444;--cy:#06b6d4;
+  --pu:#7c3aed;--pk:#ec4899;--gr:#22c55e;--ye:#f59e0b;--re:#ef4444;
   --border:rgba(124,58,237,.25);--bh:rgba(124,58,237,.6);
-  --text:#e2e8f0;--muted:#94a3b8;--dim:#64748b;
-  --r:12px;--rs:8px;--rl:18px;
+  --text:#e2e8f0;--muted:#94a3b8;--r:12px;--rs:8px;
   --fn:'Nunito',sans-serif;--fp:'Press Start 2P',monospace;
-  --tr:all .18s ease;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:14px}
-body{font-family:var(--fn);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fn);background:var(--bg);color:var(--text);min-height:100vh}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:rgba(124,58,237,.4);border-radius:3px}
-
-.hdr{background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(236,72,153,.08));
-  border-bottom:1px solid var(--border);padding:10px 18px;
+.hdr{background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(236,72,153,.1));
+  border-bottom:1px solid var(--border);padding:10px 20px;
   display:flex;align-items:center;justify-content:space-between;
   position:sticky;top:0;z-index:200;backdrop-filter:blur(14px);flex-wrap:wrap;gap:8px}
 .hdr-logo{display:flex;align-items:center;gap:10px}
-.hdr-ico{font-size:26px;animation:fl 3s ease-in-out infinite;filter:drop-shadow(0 0 8px rgba(124,58,237,.7))}
+.hdr-ico{font-size:26px;animation:fl 3s ease-in-out infinite}
 @keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-.hdr-t{font-family:var(--fp);font-size:10px;background:linear-gradient(135deg,#a78bfa,#f472b6);
+.hdr-title{font-family:var(--fp);font-size:10px;
+  background:linear-gradient(135deg,#a78bfa,#f472b6);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hdr-s{font-size:9px;color:var(--muted);margin-top:2px}
+.hdr-sub{font-size:9px;color:var(--muted);margin-top:2px}
 .hdr-acts{display:flex;gap:6px;flex-wrap:wrap}
-
-.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:99px;
-  font-family:var(--fn);font-size:12px;font-weight:700;cursor:pointer;
-  border:1.5px solid transparent;transition:var(--tr);white-space:nowrap}
-.btn:hover{transform:translateY(-1px)}
-.btn:active{transform:scale(.96)}
-.btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
-.btn-pu{background:linear-gradient(135deg,var(--pu),#6d28d9);color:#fff;box-shadow:0 4px 14px rgba(124,58,237,.35)}
-.btn-pu:hover{box-shadow:0 6px 22px rgba(124,58,237,.55)}
-.btn-pk{background:linear-gradient(135deg,var(--pk),#db2777);color:#fff}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;
+  border-radius:99px;font-family:var(--fn);font-size:12px;font-weight:700;
+  cursor:pointer;border:1.5px solid transparent;transition:all .18s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}.btn:active{transform:scale(.96)}
+.btn-pu{background:linear-gradient(135deg,var(--pu),#6d28d9);color:#fff;
+  box-shadow:0 4px 14px rgba(124,58,237,.35)}
 .btn-gr{background:linear-gradient(135deg,var(--gr),#16a34a);color:#fff}
 .btn-ye{background:linear-gradient(135deg,var(--ye),#d97706);color:#fff}
+.btn-re{background:linear-gradient(135deg,var(--re),#dc2626);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.05);color:var(--muted);border-color:var(--border)}
 .btn-ghost:hover{background:rgba(124,58,237,.1);color:var(--text);border-color:var(--bh)}
-.btn-danger{background:linear-gradient(135deg,var(--re),#dc2626);color:#fff}
-.btn-sm{padding:4px 10px;font-size:11px}
-.btn-xs{padding:3px 7px;font-size:10px}
-.btn-ico{padding:5px;border-radius:50%}
-
-.tabs{display:flex;gap:2px;padding:10px 18px 0;background:var(--panel);
+.btn-sm{padding:5px 11px;font-size:11px}
+.btn-xs{padding:3px 8px;font-size:10px}
+.tabs{display:flex;gap:2px;padding:8px 16px 0;background:var(--panel);
   border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{padding:8px 13px;border-radius:var(--r) var(--r) 0 0;background:transparent;
   color:var(--muted);border:1px solid transparent;border-bottom:none;
-  font-family:var(--fn);font-size:11px;font-weight:700;cursor:pointer;transition:var(--tr);white-space:nowrap}
+  font-family:var(--fn);font-size:11px;font-weight:700;cursor:pointer;
+  transition:all .18s;white-space:nowrap}
 .tab:hover{background:rgba(124,58,237,.08);color:var(--text)}
-.tab.on{background:var(--bg);color:#a78bfa;border-color:var(--border);border-bottom-color:var(--bg)}
-
-.layout{display:grid;grid-template-columns:1fr 285px;min-height:calc(100vh - 104px)}
-.main{padding:16px;overflow-y:auto;max-height:calc(100vh - 104px)}
-.side{border-left:1px solid var(--border);background:var(--panel);padding:14px;
-  overflow-y:auto;max-height:calc(100vh - 104px);display:flex;flex-direction:column;gap:11px}
-
-.sec{display:none}.sec.on{display:block}
-
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:11px}
+.tab.on{background:var(--bg);color:#a78bfa;border-color:var(--border);
+  border-bottom-color:var(--bg)}
+.layout{display:grid;grid-template-columns:1fr 270px;min-height:calc(100vh - 100px)}
+.main{padding:16px;overflow-y:auto;max-height:calc(100vh - 100px)}
+.side{border-left:1px solid var(--border);background:var(--panel);padding:13px;
+  overflow-y:auto;max-height:calc(100vh - 100px);display:flex;flex-direction:column;gap:10px}
+.sec{display:none}
+.sec.on{display:block;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:14px;margin-bottom:12px}
 .card-t{font-family:var(--fp);font-size:8px;color:#a78bfa;text-transform:uppercase;
-  letter-spacing:.07em;margin-bottom:11px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-
+  letter-spacing:.07em;margin-bottom:10px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .f{margin-bottom:9px}
 .f label{display:block;font-size:10px;font-weight:700;color:var(--muted);
   margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
-.f input,.f select,.f textarea{width:100%;background:var(--inp);border:1.5px solid var(--border);
-  border-radius:var(--rs);color:var(--text);font-family:var(--fn);
-  font-size:13px;padding:7px 10px;transition:var(--tr);outline:none}
-.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--pu);box-shadow:0 0 0 3px rgba(124,58,237,.18)}
-.f textarea{resize:vertical;min-height:65px}
+.f input,.f select,.f textarea{width:100%;background:var(--inp);
+  border:1.5px solid var(--border);border-radius:var(--rs);color:var(--text);
+  font-family:var(--fn);font-size:13px;padding:7px 10px;transition:all .18s;outline:none}
+.f input:focus,.f select:focus,.f textarea:focus{
+  border-color:var(--pu);box-shadow:0 0 0 3px rgba(124,58,237,.18)}
+.f textarea{resize:vertical;min-height:60px}
 .f select{appearance:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%2394a3b8' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 9px center;padding-right:26px}
-
 .ck{display:flex;align-items:center;gap:7px;padding:7px 9px;
   background:rgba(124,58,237,.05);border:1px solid var(--border);
-  border-radius:var(--rs);cursor:pointer;transition:var(--tr);margin-bottom:6px}
+  border-radius:var(--rs);cursor:pointer;transition:all .18s;margin-bottom:6px}
 .ck:hover{background:rgba(124,58,237,.1);border-color:var(--bh)}
 .ck input{width:14px;height:14px;accent-color:var(--pu);cursor:pointer}
 .ck span{font-size:11px;font-weight:700;color:var(--text)}
-
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
-
-.lang-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:7px;margin-bottom:12px}
+.lang-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(85px,1fr));
+  gap:7px;margin-bottom:12px}
 .lbtn{background:var(--inp);border:2px solid var(--border);border-radius:var(--r);
-  cursor:pointer;padding:9px 5px;text-align:center;transition:var(--tr)}
+  cursor:pointer;padding:9px 5px;text-align:center;transition:all .18s}
 .lbtn:hover{border-color:var(--bh);transform:translateY(-2px)}
-.lbtn.on{border-color:var(--pu);background:rgba(124,58,237,.14);box-shadow:0 0 12px rgba(124,58,237,.28)}
+.lbtn.on{border-color:var(--pu);background:rgba(124,58,237,.14);
+  box-shadow:0 0 12px rgba(124,58,237,.28)}
 .lbtn-flag{font-size:22px;display:block;margin-bottom:3px}
 .lbtn-name{font-size:8px;font-weight:800;color:var(--muted)}
 .lbtn.on .lbtn-name{color:#a78bfa}
-
+.lang-banner{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(236,72,153,.08));
+  border:1px solid var(--border);border-radius:var(--r);
+  padding:10px 14px;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.lang-banner-flag{font-size:24px}
+.lang-banner-name{font-family:var(--fp);font-size:9px;color:#a78bfa}
+.lang-banner-hint{font-size:10px;color:var(--muted);margin-top:2px}
 .tacc{border:1px solid var(--border);border-radius:var(--r);margin-bottom:9px;overflow:hidden}
 .tacc-hdr{display:flex;align-items:center;justify-content:space-between;
   padding:10px 13px;cursor:pointer;background:rgba(124,58,237,.04);
-  transition:var(--tr);user-select:none}
+  transition:all .18s;user-select:none}
 .tacc-hdr:hover{background:rgba(124,58,237,.09)}
 .tacc.open>.tacc-hdr{background:rgba(124,58,237,.1)}
 .tacc-left{display:flex;align-items:center;gap:8px}
 .tacc-ico{font-size:17px}
 .tacc-name{font-family:var(--fp);font-size:8px;color:#a78bfa}
-.tacc-info{font-size:9px;color:var(--muted)}
+.tacc-info{font-size:9px;color:var(--muted);
+  background:rgba(255,255,255,.05);padding:2px 7px;border-radius:5px}
 .tacc-body{padding:12px;display:none}
 .tacc.open .tacc-body{display:block}
 .tacc-arr{transition:transform .2s;font-size:11px;color:var(--muted)}
 .tacc.open .tacc-arr{transform:rotate(180deg)}
-
 .wrow{display:flex;align-items:center;gap:6px;padding:6px 9px;
   background:var(--inp);border:1.5px solid var(--border);
-  border-radius:var(--rs);margin-bottom:5px;transition:var(--tr)}
+  border-radius:var(--rs);margin-bottom:5px;transition:all .18s}
 .wrow:hover{border-color:rgba(124,58,237,.4)}
-.wrow-n{font-family:var(--fp);font-size:7px;color:var(--pu);min-width:16px;flex-shrink:0}
+.wrow-n{font-family:var(--fp);font-size:7px;color:var(--pu);min-width:16px;text-align:center}
 .wrow input{flex:1;background:transparent;border:none;color:var(--text);
   font-family:var(--fn);font-size:13px;outline:none}
 .wrow input::placeholder{color:rgba(255,255,255,.18)}
-
 .prow{display:flex;align-items:center;gap:6px;padding:6px 9px;
   background:var(--inp);border:1.5px solid var(--border);
   border-radius:var(--rs);margin-bottom:5px}
-.prow-arr{font-size:12px;color:var(--pk);flex-shrink:0}
+.prow-sep{font-size:12px;color:var(--pk);flex-shrink:0}
 .prow input{flex:1;background:transparent;border:none;color:var(--text);
-  font-family:var(--fn);font-size:12px;outline:none}
+  font-family:var(--fn);font-size:13px;outline:none}
 .prow input::placeholder{color:rgba(255,255,255,.18)}
-.prow input:first-of-type{max-width:45%}
-
-.provrow{background:var(--inp);border:1.5px solid var(--border);
+.phrow{background:var(--inp);border:1.5px solid var(--border);
   border-radius:var(--rs);padding:9px;margin-bottom:7px}
-.provrow-top{display:flex;align-items:center;gap:6px;margin-bottom:6px}
-.prov-n{font-family:var(--fp);font-size:7px;color:var(--pu)}
-.prov-cat{font-size:9px;color:var(--muted);background:rgba(255,255,255,.05);padding:2px 7px;border-radius:5px}
-.provrow input.prov-text{width:100%;background:transparent;border:none;
+.phrow-top{display:flex;align-items:center;gap:6px;margin-bottom:7px}
+.phrow-n{font-family:var(--fp);font-size:7px;color:var(--pu)}
+.phrow-cat{font-size:9px;color:var(--muted);
+  background:rgba(255,255,255,.05);padding:2px 7px;border-radius:5px}
+.phrow input.ph-text{width:100%;background:transparent;border:none;
   border-bottom:1px solid var(--border);color:var(--text);
-  font-family:var(--fn);font-size:12px;outline:none;padding:3px 0;margin-bottom:6px}
-.provrow input.prov-text:focus{border-bottom-color:var(--pu)}
-.prov-ans-row{display:flex;align-items:center;gap:6px}
-.prov-ans-lbl{font-size:9px;color:var(--muted);white-space:nowrap}
-.provrow input.prov-ans{flex:1;background:rgba(34,197,94,.07);
-  border:1px solid rgba(34,197,94,.28);border-radius:6px;
-  color:var(--gr);font-family:var(--fn);font-size:13px;font-weight:700;padding:4px 8px;outline:none}
-
+  font-family:var(--fn);font-size:13px;outline:none;padding:3px 0;margin-bottom:7px}
+.phrow input.ph-text:focus{border-bottom-color:var(--pu)}
+.phrow-ans{display:flex;align-items:center;gap:6px}
+.phrow-ans-lbl{font-size:9px;color:var(--muted);white-space:nowrap}
+.phrow input.ph-ans{flex:1;background:rgba(34,197,94,.07);
+  border:1px solid rgba(34,197,94,.28);border-radius:6px;color:var(--gr);
+  font-family:var(--fn);font-size:13px;font-weight:700;padding:4px 8px;outline:none}
 .pets-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:9px}
 .pet-card{background:var(--inp);border:2px solid var(--border);
-  border-radius:var(--r);padding:12px;text-align:center;transition:var(--tr)}
+  border-radius:var(--r);padding:12px;text-align:center;transition:all .18s}
 .pet-card:hover{border-color:var(--bh)}
 .pet-emo{font-size:36px;margin-bottom:5px}
-.pet-stage{font-family:var(--fp);font-size:7px;color:#a78bfa;margin-bottom:4px}
-
-.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:9px}
+.pet-stage{font-family:var(--fp);font-size:7px;color:#a78bfa;margin-bottom:6px}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:9px}
 .shop-item{background:var(--inp);border:2px solid var(--border);
-  border-radius:var(--r);padding:11px;transition:var(--tr)}
+  border-radius:var(--r);padding:11px;transition:all .18s}
 .shop-item:hover{border-color:var(--bh)}
 .shop-ico{font-size:28px;text-align:center;margin-bottom:6px}
-.shop-price{font-family:var(--fp);font-size:8px;color:var(--ye);margin-top:4px}
-
 .prev-box{border-radius:var(--r);overflow:hidden;border:1.5px solid var(--border);
-  background:linear-gradient(135deg,#FFF9F0,#F0F4FF);min-height:200px}
-.prev-inn{padding:11px;display:flex;flex-direction:column;gap:6px}
+  background:linear-gradient(135deg,#FFF9F0,#F0F4FF)}
+.prev-inn{padding:11px;display:flex;flex-direction:column;gap:5px}
 .prev-title{font-family:var(--fp);font-size:7px;color:#4C1D95;text-align:center}
-.prev-pet{font-size:38px;text-align:center;animation:fl 3s ease-in-out infinite}
+.prev-pet{font-size:36px;text-align:center;animation:fl 3s ease-in-out infinite}
 .prev-q{background:rgba(255,255,255,.9);border:1px solid rgba(124,58,237,.18);
-  border-radius:8px;padding:7px 9px;font-size:9px;color:#2D1B69;line-height:1.5}
+  border-radius:8px;padding:6px 9px;font-size:9px;color:#2D1B69;line-height:1.5}
 .prev-opts{display:flex;flex-direction:column;gap:3px}
 .prev-opt{background:rgba(124,58,237,.07);border:1px solid rgba(124,58,237,.2);
   border-radius:5px;padding:4px 7px;font-size:9px;color:#2D1B69}
 .prev-opt.ok{border-color:#22c55e;background:rgba(34,197,94,.1);color:#16a34a;font-weight:700}
-
 .srow{display:flex;align-items:center;justify-content:space-between;
   padding:6px 9px;background:var(--inp);border-radius:var(--rs);margin-bottom:4px}
 .srow-l{font-size:10px;color:var(--muted)}
 .srow-v{font-family:var(--fp);font-size:8px;color:var(--pu)}
-
-.bdg{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:700}
+.bdg{display:inline-flex;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:700}
 .bdg-pu{background:rgba(124,58,237,.15);color:#a78bfa;border:1px solid rgba(124,58,237,.25)}
 .bdg-gr{background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.25)}
-.bdg-pk{background:rgba(236,72,153,.12);color:#f472b6;border:1px solid rgba(236,72,153,.25)}
-.bdg-ye{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.25)}
-
-.code-box{background:#080812;border:1px solid var(--border);border-radius:var(--r);
+.bdg-re{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.25)}
+.code-box{background:#050510;border:1px solid var(--border);border-radius:var(--r);
   padding:11px;font-family:'Courier New',monospace;font-size:10px;color:#a78bfa;
   white-space:pre-wrap;overflow:auto;max-height:260px;line-height:1.6;word-break:break-all}
-
 #toasts{position:fixed;bottom:16px;right:16px;z-index:9999;
   display:flex;flex-direction:column;gap:6px;pointer-events:none}
-
+.toast{background:var(--panel);border:1px solid var(--border);border-radius:10px;
+  padding:9px 14px;font-size:11px;font-weight:700;color:var(--text);
+  box-shadow:0 4px 18px rgba(0,0,0,.4);animation:slideIn .25s ease;
+  display:flex;align-items:center;gap:7px;pointer-events:auto}
+.toast.ok{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.08)}
+.toast.err{border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.08)}
+.toast.info{border-color:rgba(124,58,237,.4);background:rgba(124,58,237,.08)}
 .modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);
   z-index:8000;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(6px)}
-.modal-box{background:var(--panel);border:1.5px solid var(--border);border-radius:var(--rl);
-  width:100%;max-width:560px;max-height:88vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.6)}
+.modal-ov.open{display:flex}
+.modal-box{background:var(--panel);border:1.5px solid var(--border);border-radius:18px;
+  width:100%;max-width:560px;max-height:88vh;overflow-y:auto;
+  box-shadow:0 8px 40px rgba(0,0,0,.6)}
 .modal-head{padding:14px 18px;border-bottom:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-between;
   position:sticky;top:0;background:var(--panel);z-index:1}
@@ -209,26 +202,18 @@ body{font-family:var(--fn);background:var(--bg);color:var(--text);min-height:100
 .modal-foot{padding:12px 18px;border-top:1px solid var(--border);
   display:flex;justify-content:flex-end;gap:7px;
   position:sticky;bottom:0;background:var(--panel)}
-
-@keyframes fadeIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-@keyframes slideIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
-@keyframes fadeOut{from{opacity:1}to{opacity:0;transform:translateX(16px)}}
-.ani{animation:fadeIn .22s ease forwards}
-
-@media(max-width:880px){
-  .layout{grid-template-columns:1fr}
-  .side{border-left:none;border-top:1px solid var(--border);max-height:none}
-}
-@media(max-width:580px){
-  .g2,.g3,.g4{grid-template-columns:1fr}
-  .hdr-acts .btn span{display:none}
-}
-
-.mt8{margin-top:8px}.mt12{margin-top:12px}.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}
+@keyframes slideIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
+.mt8{margin-top:8px}.mt12{margin-top:12px}
+.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}
 .divider{height:1px;background:var(--border);margin:10px 0}
+.w100{width:100%}.flex{display:flex}.gap8{gap:8px}
 .text-muted{color:var(--muted);font-size:10px;line-height:1.5}
-.w100{width:100%}.flex{display:flex}.gap8{gap:8px}.hidden{display:none!important}
-.center{text-align:center}
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .side{border-left:none;border-top:1px solid var(--border);max-height:none}}
+@media(max-width:580px){
+  .g2,.g3{grid-template-columns:1fr}
+  .hdr-acts .btn span{display:none}}
 </style>
 </head>
 <body>
@@ -237,19 +222,20 @@ body{font-family:var(--fn);background:var(--bg);color:var(--text);min-height:100
   <div class="hdr-logo">
     <div class="hdr-ico">🐾</div>
     <div>
-      <div class="hdr-t">Tamagotchi Editor</div>
-      <div class="hdr-s">Редактор заданий · 7 языков · 3 уровня</div>
+      <div class="hdr-title">Tamagotchi Editor</div>
+      <div class="hdr-sub">Редактор · 7 языков · 3 уровня</div>
     </div>
   </div>
   <div class="hdr-acts">
     <button class="btn btn-ghost btn-sm" onclick="loadProject()">📂 <span>Открыть</span></button>
     <button class="btn btn-ghost btn-sm" onclick="saveProject()">💾 <span>Сохранить</span></button>
     <button class="btn btn-ghost btn-sm" onclick="openPreview()">👁 <span>Превью</span></button>
+    <button class="btn btn-ye btn-sm" onclick="fillDemo()">🎲 <span>Демо</span></button>
     <button class="btn btn-pu btn-sm" onclick="exportGame()">🚀 <span>Экспорт</span></button>
   </div>
 </header>
 
-<nav class="tabs" id="nav-tabs">
+<nav class="tabs">
   <button class="tab on" onclick="goTab('lang',this)">🌐 Язык</button>
   <button class="tab" onclick="goTab('l1',this)">🐣 Уровень 1</button>
   <button class="tab" onclick="goTab('l2',this)">🐱 Уровень 2</button>
@@ -268,21 +254,26 @@ body{font-family:var(--fn);background:var(--bg);color:var(--text);min-height:100
   <div class="card">
     <div class="card-t">🌐 Язык игры</div>
     <div class="lang-grid" id="lang-grid"></div>
-    <div class="text-muted">Текущий язык: <b id="cur-lang-lbl">RU</b> · Каждый язык хранит задания независимо</div>
+    <div id="lang-banner"></div>
+    <p class="text-muted">При переключении языка все поля обновляются автоматически.</p>
   </div>
   <div class="card">
-    <div class="card-t">📋 Информация</div>
+    <div class="card-t">📋 Информация об игре</div>
     <div class="g2">
-      <div class="f"><label>Название игры</label><input id="g-title" type="text" placeholder="Тамагочи — Лексика А1" oninput="sync()"></div>
-      <div class="f"><label>Подзаголовок</label><input id="g-subtitle" type="text" placeholder="Уровень А1" oninput="sync()"></div>
+      <div class="f"><label>Название</label>
+        <input id="g-title" type="text" placeholder="Тамагочи — Лексика А1" oninput="sync()"></div>
+      <div class="f"><label>Подзаголовок</label>
+        <input id="g-subtitle" type="text" placeholder="Уровень А1" oninput="sync()"></div>
     </div>
-    <div class="f"><label>Описание</label><textarea id="g-desc" placeholder="Краткое описание..." oninput="sync()"></textarea></div>
+    <div class="f"><label>Описание</label>
+      <textarea id="g-desc" placeholder="Описание игры..." oninput="sync()"></textarea></div>
     <div class="g2">
       <div class="f"><label>Предмет</label>
         <select id="g-subject" onchange="sync()">
           <option value="german">Немецкий язык</option>
           <option value="russian">Русский язык</option>
           <option value="english">Английский язык</option>
+          <option value="french">Французский язык</option>
           <option value="other">Другое</option>
         </select>
       </div>
@@ -298,23 +289,30 @@ body{font-family:var(--fn);background:var(--bg);color:var(--text);min-height:100
     </div>
   </div>
   <div class="card">
-    <div class="card-t">⚙️ Параметры игры</div>
+    <div class="card-t">⚙️ Параметры</div>
     <div class="g3">
-      <div class="f"><label>⏱ Таймер (сек)</label><input type="number" id="g-timer" min="10" max="120" value="30" oninput="sync()"></div>
-      <div class="f"><label>❤️ Жизни</label><input type="number" id="g-lives" min="1" max="5" value="3" oninput="sync()"></div>
-      <div class="f"><label>🏆 Проходной %</label><input type="number" id="g-pass" min="50" max="100" value="75" oninput="sync()"></div>
+      <div class="f"><label>⏱ Таймер (сек)</label>
+        <input type="number" id="g-timer" min="10" max="120" value="30" oninput="sync()"></div>
+      <div class="f"><label>❤️ Жизни</label>
+        <input type="number" id="g-lives" min="1" max="5" value="3" oninput="sync()"></div>
+      <div class="f"><label>🏆 Проходной %</label>
+        <input type="number" id="g-pass" min="50" max="100" value="75" oninput="sync()"></div>
     </div>
-    <label class="ck"><input type="checkbox" id="g-shuffle" onchange="sync()"><span>🔀 Перемешивать задания</span></label>
-    <label class="ck"><input type="checkbox" id="g-music" checked onchange="sync()"><span>🎵 Музыка по умолчанию</span></label>
-    <label class="ck"><input type="checkbox" id="g-hints" checked onchange="sync()"><span>💡 Подсказки (уровень 3)</span></label>
+    <label class="ck"><input type="checkbox" id="g-shuffle" onchange="sync()">
+      <span>🔀 Перемешивать задания</span></label>
+    <label class="ck"><input type="checkbox" id="g-music" checked onchange="sync()">
+      <span>🎵 Фоновая музыка</span></label>
+    <label class="ck"><input type="checkbox" id="g-hints" checked onchange="sync()">
+      <span>💡 Подсказки (Уровень 3)</span></label>
   </div>
 </div>
 
 <!-- УРОВЕНЬ 1 -->
 <div class="sec" id="sec-l1">
   <div class="card">
-    <div class="card-t">🐣 Уровень 1 — Выбор слова по теме <span class="bdg bdg-pu" id="l1-cnt">0 слов</span></div>
-    <div class="text-muted mb8">4 темы × 10 слов = 40 слов. Игрок выбирает слово своей темы из 4 вариантов.</div>
+    <div class="card-t">🐣 Уровень 1 — Лексика
+      <span class="bdg bdg-pu" id="l1-cnt">0 слов</span></div>
+    <p class="text-muted mb8">4 темы × 10 слов. Язык: <b id="l1-lang-lbl">RU</b></p>
   </div>
   <div id="l1-themes"></div>
 </div>
@@ -322,8 +320,9 @@ body{font-family:var(--fn);background:var(--bg);color:var(--text);min-height:100
 <!-- УРОВЕНЬ 2 -->
 <div class="sec" id="sec-l2">
   <div class="card">
-    <div class="card-t">🐱 Уровень 2 — Словосочетания (поймай мышку) <span class="bdg bdg-pu" id="l2-cnt">0 пар</span></div>
-    <div class="text-muted mb8">4 темы × 10 пар = 40 пар. Игрок видит глагол/основу и ловит нужное дополнение.</div>
+    <div class="card-t">🐱 Уровень 2 — Словосочетания
+      <span class="bdg bdg-pu" id="l2-cnt">0 пар</span></div>
+    <p class="text-muted mb8">4 темы × 10 пар. Язык: <b id="l2-lang-lbl">RU</b></p>
   </div>
   <div id="l2-themes"></div>
 </div>
@@ -331,8 +330,9 @@ body{font-family:var(--fn);background:var(--bg);color:var(--text);min-height:100
 <!-- УРОВЕНЬ 3 -->
 <div class="sec" id="sec-l3">
   <div class="card">
-    <div class="card-t">🌟 Уровень 3 — Вставить слово в фразу <span class="bdg bdg-pu" id="l3-cnt">0 фраз</span></div>
-    <div class="text-muted mb8">Игрок видит фразу с пропуском <b>_____</b> и вводит слово. 5 вопросов из 20 фраз.</div>
+    <div class="card-t">🌟 Уровень 3 — Вставить слово
+      <span class="bdg bdg-pu" id="l3-cnt">0 фраз</span></div>
+    <p class="text-muted mb8">Фразы с пропуском <b>_____</b>. Язык: <b id="l3-lang-lbl">RU</b></p>
   </div>
   <div id="l3-provs"></div>
   <button class="btn btn-ghost btn-sm mt8" onclick="addProv()">➕ Добавить фразу</button>
@@ -341,13 +341,12 @@ body{font-family:var(--fn);background:var(--bg);color:var(--text);min-height:100
 <!-- ПИТОМЦЫ -->
 <div class="sec" id="sec-pets">
   <div class="card">
-    <div class="card-t">🥚 Стадии эволюции питомца</div>
-    <div class="text-muted mb8">Питомец эволюционирует по мере прохождения уровней. Настройте эмодзи и названия.</div>
+    <div class="card-t">🥚 Стадии питомца</div>
     <div class="pets-grid" id="pets-grid"></div>
   </div>
   <div class="card">
-    <div class="card-t">💬 Реплики питомца</div>
-    <div class="text-muted mb8">Что говорит питомец в разных ситуациях:</div>
+    <div class="card-t">💬 Реплики питомца
+      <span class="bdg bdg-pu" id="phrases-lang-lbl">RU</span></div>
     <div id="pet-phrases"></div>
   </div>
 </div>
@@ -356,9 +355,9 @@ body{font-family:var(--fn);background:var(--bg);color:var(--text);min-height:100
 <div class="sec" id="sec-shop">
   <div class="card">
     <div class="card-t">🛍 Предметы магазина</div>
-    <div class="text-muted mb8">Игрок тратит монеты на уход за питомцем. Настройте предметы и цены.</div>
+    <p class="text-muted mb8">Игрок тратит монеты на уход за питомцем.</p>
     <div class="shop-grid" id="shop-grid"></div>
-    <button class="btn btn-ghost btn-sm mt8" onclick="addShopItem()">➕ Добавить предмет</button>
+    <button class="btn btn-ghost btn-sm mt8" onclick="addShopItem()">➕ Добавить</button>
   </div>
 </div>
 
@@ -367,27 +366,72 @@ body{font-family:var(--fn);background:var(--bg);color:var(--text);min-height:100
   <div class="card">
     <div class="card-t">🎨 Цвета интерфейса</div>
     <div class="g2">
-      <div class="f"><label>Основной цвет</label><input type="color" id="ui-color1" value="#7c3aed" oninput="sync()"></div>
-      <div class="f"><label>Акцентный цвет</label><input type="color" id="ui-color2" value="#ec4899" oninput="sync()"></div>
-      <div class="f"><label>Цвет правильного ответа</label><input type="color" id="ui-correct" value="#22c55e" oninput="sync()"></div>
-      <div class="f"><label>Цвет ошибки</label><input type="color" id="ui-wrong" value="#ef4444" oninput="sync()"></div>
+      <div class="f"><label>Основной цвет</label>
+        <input type="color" id="ui-color1" value="#7c3aed" oninput="sync()"></div>
+      <div class="f"><label>Акцентный</label>
+        <input type="color" id="ui-color2" value="#ec4899"
+## ЧАСТЬ 2 из 3 — продолжение HTML
+
+```html
+        oninput="sync()"></div>
+      <div class="f"><label>Фон игры</label>
+        <input type="color" id="ui-bgcolor" value="#0f0c1a" oninput="sync()"></div>
+      <div class="f"><label>Цвет текста</label>
+        <input type="color" id="ui-textcolor" value="#e2e8f0" oninput="sync()"></div>
     </div>
   </div>
   <div class="card">
-    <div class="card-t">✏️ Тексты интерфейса</div>
-    <div class="f"><label>Кнопка «Начать»</label><input type="text" id="ui-start" value="Начать игру!" oninput="sync()"></div>
-    <div class="f"><label>Кнопка «Далее»</label><input type="text" id="ui-next" value="Дальше →" oninput="sync()"></div>
-    <div class="f"><label>Сообщение «Победа»</label><input type="text" id="ui-win" value="🎉 Молодец! Питомец счастлив!" oninput="sync()"></div>
-    <div class="f"><label>Сообщение «Поражение»</label><input type="text" id="ui-lose" value="😢 Попробуй ещё раз!" oninput="sync()"></div>
-    <div class="f"><label>Текст таймера</label><input type="text" id="ui-timer" value="Осталось:" oninput="sync()"></div>
-    <div class="f"><label>Текст счёта</label><input type="text" id="ui-score" value="Очки:" oninput="sync()"></div>
+    <div class="card-t">🔤 Шрифты</div>
+    <div class="g2">
+      <div class="f"><label>Основной шрифт</label>
+        <select id="ui-font" onchange="sync()">
+          <option value="Nunito">Nunito</option>
+          <option value="Roboto">Roboto</option>
+          <option value="Open Sans">Open Sans</option>
+          <option value="Comic Sans MS">Comic Sans</option>
+          <option value="Arial">Arial</option>
+        </select>
+      </div>
+      <div class="f"><label>Размер шрифта</label>
+        <select id="ui-fontsize" onchange="sync()">
+          <option value="13px">Маленький</option>
+          <option value="15px" selected>Средний</option>
+          <option value="17px">Большой</option>
+          <option value="19px">Очень большой</option>
+        </select>
+      </div>
+    </div>
   </div>
   <div class="card">
-    <div class="card-t">🎵 Звук и анимации</div>
-    <label class="ck"><input type="checkbox" id="ui-anim" checked onchange="sync()"><span>✨ Анимации переходов</span></label>
-    <label class="ck"><input type="checkbox" id="ui-sfx" checked onchange="sync()"><span>🔊 Звуковые эффекты</span></label>
-    <label class="ck"><input type="checkbox" id="ui-confetti" checked onchange="sync()"><span>🎊 Конфетти при победе</span></label>
-    <label class="ck"><input type="checkbox" id="ui-shake" checked onchange="sync()"><span>📳 Тряска при ошибке</span></label>
+    <div class="card-t">🖼 Фон игры</div>
+    <div class="g2">
+      <div class="f"><label>Стиль фона</label>
+        <select id="ui-bgstyle" onchange="sync()">
+          <option value="solid">Одноцветный</option>
+          <option value="gradient">Градиент</option>
+          <option value="stars">Звёзды</option>
+          <option value="clouds">Облака</option>
+        </select>
+      </div>
+      <div class="f"><label>Скорость анимации</label>
+        <select id="ui-animspeed" onchange="sync()">
+          <option value="slow">Медленная</option>
+          <option value="normal" selected>Нормальная</option>
+          <option value="fast">Быстрая</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-t">🔊 Звуки</div>
+    <label class="ck"><input type="checkbox" id="ui-sound-correct" checked onchange="sync()">
+      <span>✅ Звук правильного ответа</span></label>
+    <label class="ck"><input type="checkbox" id="ui-sound-wrong" checked onchange="sync()">
+      <span>❌ Звук неправильного ответа</span></label>
+    <label class="ck"><input type="checkbox" id="ui-sound-levelup" checked onchange="sync()">
+      <span>🎉 Звук повышения уровня</span></label>
+    <label class="ck"><input type="checkbox" id="ui-sound-coins" checked onchange="sync()">
+      <span>🪙 Звук монет</span></label>
   </div>
 </div>
 
@@ -395,1629 +439,2087 @@ body{font-family:var(--fn);background:var(--bg);color:var(--text);min-height:100
 <div class="sec" id="sec-export">
   <div class="card">
     <div class="card-t">📦 Экспорт проекта</div>
+    <p class="text-muted mb8">Выберите формат экспорта игры.</p>
     <div class="g2">
-      <button class="btn btn-pu w100" onclick="exportGame()">🚀 Экспорт HTML-игры</button>
-      <button class="btn btn-gr w100" onclick="saveProject()">💾 Сохранить проект (.json)</button>
-      <button class="btn btn-ye w100" onclick="exportJSON()">📋 Только данные (.json)</button>
-      <button class="btn btn-ghost w100" onclick="copyCode()">📄 Скопировать код</button>
+      <button class="btn btn-pu w100" onclick="exportGame()">🚀 HTML файл</button>
+      <button class="btn btn-gr w100" onclick="exportJSON()">📋 JSON данные</button>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-t">👁 Предпросмотр кода</div>
-    <div class="code-box" id="code-preview">// Нажмите «Экспорт» для генерации кода...</div>
+    <div class="divider"></div>
+    <div class="card-t mt8">👁 Предпросмотр JSON</div>
+    <div class="code-box" id="json-preview">{}</div>
+    <button class="btn btn-ghost btn-sm mt8" onclick="copyJSON()">📋 Копировать JSON</button>
   </div>
   <div class="card">
     <div class="card-t">📊 Статистика проекта</div>
-    <div id="export-stats"></div>
+    <div class="srow"><span class="srow-l">🐣 Слов в уровне 1</span>
+      <span class="srow-v" id="stat-l1">0</span></div>
+    <div class="srow"><span class="srow-l">🐱 Пар в уровне 2</span>
+      <span class="srow-v" id="stat-l2">0</span></div>
+    <div class="srow"><span class="srow-l">🌟 Фраз в уровне 3</span>
+      <span class="srow-v" id="stat-l3">0</span></div>
+    <div class="srow"><span class="srow-l">🛍 Предметов в магазине</span>
+      <span class="srow-v" id="stat-shop">0</span></div>
+    <div class="srow"><span class="srow-l">🌐 Язык игры</span>
+      <span class="srow-v" id="stat-lang">RU</span></div>
   </div>
 </div>
 
-</div><!-- /main -->
+</div><!-- конец .main -->
 
 <!-- САЙДБАР -->
 <div class="side">
-  <div class="card-t" style="margin-bottom:4px">👁 Предпросмотр</div>
+  <div class="card-t">👁 Превью</div>
   <div class="prev-box">
-    <div class="prev-inn" id="preview-area">
-      <div class="prev-title" id="prev-title">ТАМАГОЧИ</div>
+    <div class="prev-inn">
+      <div class="prev-title" id="prev-title">Тамагочи</div>
       <div class="prev-pet" id="prev-pet">🥚</div>
-      <div class="prev-q" id="prev-q">Выберите слово по теме «Сон»:</div>
+      <div class="prev-q" id="prev-q">Как переводится слово?</div>
       <div class="prev-opts" id="prev-opts">
-        <div class="prev-opt ok">schlafen</div>
-        <div class="prev-opt">essen</div>
-        <div class="prev-opt">spielen</div>
-        <div class="prev-opt">laufen</div>
+        <div class="prev-opt ok">✅ Правильный ответ</div>
+        <div class="prev-opt">Вариант 2</div>
+        <div class="prev-opt">Вариант 3</div>
       </div>
     </div>
   </div>
 
   <div class="divider"></div>
-  <div style="font-family:var(--fp);font-size:8px;color:#a78bfa;margin-bottom:8px">📊 Статистика</div>
-  <div class="srow"><span class="srow-l">Язык</span><span class="srow-v" id="stat-lang">RU</span></div>
-  <div class="srow"><span class="srow-l">Слов (ур.1)</span><span class="srow-v" id="stat-l1">0</span></div>
-  <div class="srow"><span class="srow-l">Пар (ур.2)</span><span class="srow-v" id="stat-l2">0</span></div>
-  <div class="srow"><span class="srow-l">Фраз (ур.3)</span><span class="srow-v" id="stat-l3">0</span></div>
-  <div class="srow"><span class="srow-l">Питомцев</span><span class="srow-v" id="stat-pets">5</span></div>
-  <div class="srow"><span class="srow-l">Предметов</span><span class="srow-v" id="stat-shop">0</span></div>
+  <div class="card-t">📊 Статус</div>
+  <div class="srow"><span class="srow-l">🌐 Язык</span>
+    <span class="srow-v" id="side-lang">RU</span></div>
+  <div class="srow"><span class="srow-l">📝 Слов (Ур.1)</span>
+    <span class="srow-v" id="side-l1">0</span></div>
+  <div class="srow"><span class="srow-l">🔗 Пар (Ур.2)</span>
+    <span class="srow-v" id="side-l2">0</span></div>
+  <div class="srow"><span class="srow-l">✏️ Фраз (Ур.3)</span>
+    <span class="srow-v" id="side-l3">0</span></div>
 
   <div class="divider"></div>
-  <div style="font-family:var(--fp);font-size:8px;color:#a78bfa;margin-bottom:8px">⚡ Быстрые действия</div>
-  <button class="btn btn-ghost btn-sm w100 mb8" onclick="fillDemo()">🎲 Заполнить демо-данными</button>
+  <div class="card-t">⚡ Быстрые действия</div>
+  <button class="btn btn-ghost btn-sm w100 mb8" onclick="fillDemo()">🎲 Заполнить демо</button>
   <button class="btn btn-ghost btn-sm w100 mb8" onclick="clearAll()">🗑 Очистить всё</button>
-  <button class="btn btn-ghost btn-sm w100" onclick="validateAll()">✅ Проверить данные</button>
+  <button class="btn btn-pu btn-sm w100" onclick="exportGame()">🚀 Экспорт HTML</button>
 </div>
 
-</div><!-- /layout -->
+</div><!-- конец .layout -->
 
 <!-- ТОСТЫ -->
 <div id="toasts"></div>
 
-<!-- МОДАЛКА ПРЕВЬЮ -->
-<div class="modal-ov" id="modal-preview" onclick="closeModal('modal-preview')">
-  <div class="modal-box" onclick="event.stopPropagation()">
+<!-- МОДАЛЬНОЕ ОКНО ПРЕВЬЮ -->
+<div class="modal-ov" id="modal-preview">
+  <div class="modal-box">
     <div class="modal-head">
       <div class="modal-title">👁 Предпросмотр игры</div>
       <button class="btn btn-ghost btn-xs" onclick="closeModal('modal-preview')">✕</button>
     </div>
-    <div class="modal-body">
-      <iframe id="preview-frame" style="width:100%;height:500px;border:none;border-radius:8px;background:#fff"></iframe>
-    </div>
-  </div>
-</div>
-
-<!-- МОДАЛКА ИМПОРТА -->
-<div class="modal-ov" id="modal-import" onclick="closeModal('modal-import')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-head">
-      <div class="modal-title">📂 Открыть проект</div>
-      <button class="btn btn-ghost btn-xs" onclick="closeModal('modal-import')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="f"><label>Вставьте JSON или перетащите файл</label>
-        <textarea id="import-json" style="min-height:200px;font-family:monospace;font-size:11px" placeholder='{"lang":"ru","l1":...}'></textarea>
-      </div>
-      <div class="f">
-        <input type="file" id="import-file" accept=".json" onchange="readFile(this)" style="color:var(--muted)">
-      </div>
-    </div>
+    <div class="modal-body" id="modal-preview-body"></div>
     <div class="modal-foot">
-      <button class="btn btn-ghost btn-sm" onclick="closeModal('modal-import')">Отмена</button>
-      <button class="btn btn-pu btn-sm" onclick="doImport()">📂 Загрузить</button>
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('modal-preview')">Закрыть</button>
+      <button class="btn btn-pu btn-sm" onclick="exportGame()">🚀 Экспорт</button>
     </div>
   </div>
 </div>
 
+<!-- СКРЫТЫЙ INPUT ДЛЯ ЗАГРУЗКИ -->
+<input type="file" id="file-input" accept=".json" style="display:none" onchange="handleFile(event)">
+```
+```html
 <script>
-// ══════════════════════════════════════════════
-//  ДАННЫЕ
-// ══════════════════════════════════════════════
-
+// ============================================================
+// ДАННЫЕ
+// ============================================================
 const LANGS = [
-  {code:'ru', flag:'🇷🇺', name:'RU'},
-  {code:'de', flag:'🇩🇪', name:'DE'},
-  {code:'en', flag:'🇬🇧', name:'EN'},
-  {code:'fr', flag:'🇫🇷', name:'FR'},
-  {code:'es', flag:'🇪🇸', name:'ES'},
-  {code:'it', flag:'🇮🇹', name:'IT'},
-  {code:'zh', flag:'🇨🇳', name:'ZH'},
+  {code:'ru',flag:'🇷🇺',name:'Русский',hint:'Язык интерфейса'},
+  {code:'de',flag:'🇩🇪',name:'Deutsch',hint:'Немецкий'},
+  {code:'en',flag:'🇬🇧',name:'English',hint:'Английский'},
+  {code:'fr',flag:'🇫🇷',name:'Français',hint:'Французский'},
+  {code:'es',flag:'🇪🇸',name:'Español',hint:'Испанский'},
+  {code:'it',flag:'🇮🇹',name:'Italiano',hint:'Итальянский'},
+  {code:'tr',flag:'🇹🇷',name:'Türkçe',hint:'Турецкий'},
 ];
 
 const THEMES_L1 = [
-  {id:'sleep', icon:'😴', name:'Сон / Schlaf'},
-  {id:'food',  icon:'🍽', name:'Питание / Essen'},
-  {id:'play',  icon:'🎮', name:'Игра / Spiel'},
-  {id:'walk',  icon:'🚶', name:'Прогулка / Spaziergang'},
+  {ico:'🏠',name:'Дом и быт'},
+  {ico:'🍎',name:'Еда и напитки'},
+  {ico:'👨‍👩‍👧',name:'Семья и люди'},
+  {ico:'🌍',name:'Природа и погода'},
 ];
 
 const THEMES_L2 = [
-  {id:'clothes', icon:'👕', name:'Одежда / Kleidung'},
-  {id:'hobby',   icon:'🎨', name:'Хобби / Hobby'},
-  {id:'sick',    icon:'🤒', name:'Болезнь / Krankheit'},
-  {id:'hygiene', icon:'🧼', name:'Гигиена / Hygiene'},
-];
-
-const THEMES_L3 = [
-  {id:'friend',   icon:'🤝', name:'Дружба'},
-  {id:'emotions', icon:'😊', name:'Эмоции'},
-  {id:'knowledge',icon:'📚', name:'Знания'},
-  {id:'holiday',  icon:'🎉', name:'Праздник'},
+  {ico:'💬',name:'Приветствия'},
+  {ico:'🛒',name:'Покупки'},
+  {ico:'🏥',name:'Здоровье'},
+  {ico:'🎓',name:'Учёба'},
 ];
 
 const PET_STAGES = [
-  {emoji:'🥚', stage:'Яйцо',    desc:'Начало пути'},
-  {emoji:'🐣', stage:'Птенец',  desc:'Уровень 1 пройден'},
-  {emoji:'🐱', stage:'Котёнок', desc:'Уровень 2 пройден'},
-  {emoji:'🐯', stage:'Тигрёнок',desc:'Уровень 3 пройден'},
-  {emoji:'🦁', stage:'Лев',     desc:'Все уровни пройдены'},
-];
-
-const PET_PHRASE_KEYS = [
-  {key:'greeting', label:'Приветствие'},
-  {key:'correct',  label:'Правильный ответ'},
-  {key:'wrong',    label:'Неправильный ответ'},
-  {key:'levelup',  label:'Повышение уровня'},
-  {key:'hungry',   label:'Питомец голоден'},
-  {key:'happy',    label:'Питомец счастлив'},
-  {key:'sad',      label:'Питомец грустит'},
-  {key:'win',      label:'Победа в игре'},
+  {stage:'Яйцо',    emoji:'🥚', desc:'Начало игры'},
+  {stage:'Малыш',   emoji:'🐣', desc:'10+ монет'},
+  {stage:'Котёнок', emoji:'🐱', desc:'30+ монет'},
+  {stage:'Кот',     emoji:'😺', desc:'60+ монет'},
+  {stage:'Звезда',  emoji:'🌟', desc:'100+ монет'},
 ];
 
 const DEFAULT_SHOP = [
-  {ico:'🍎', name:'Яблоко',    price:5,  effect:'hunger'},
-  {ico:'🍕', name:'Пицца',     price:10, effect:'hunger'},
-  {ico:'🎾', name:'Мячик',     price:8,  effect:'fun'},
-  {ico:'🎮', name:'Геймпад',   price:15, effect:'fun'},
-  {ico:'🛁', name:'Ванна',     price:6,  effect:'hygiene'},
-  {ico:'💊', name:'Лекарство', price:12, effect:'health'},
+  {ico:'🍎',name:'Яблоко',    price:5, effect:'hunger'},
+  {ico:'💧',name:'Вода',      price:3, effect:'thirst'},
+  {ico:'🎮',name:'Игрушка',   price:8, effect:'fun'},
+  {ico:'💊',name:'Таблетка',  price:10,effect:'health'},
+  {ico:'🛁',name:'Ванна',     price:7, effect:'clean'},
+  {ico:'😴',name:'Кроватка',  price:6, effect:'sleep'},
 ];
 
-// Состояние
-let curLang = 'ru';
-let project = {};
+const DEMO_PHRASES = [
+  {cat:'👋 Приветствие', text:'Привет! Давай учиться вместе!'},
+  {cat:'✅ Правильно',   text:'Отлично! Ты молодец!'},
+  {cat:'❌ Неверно',     text:'Не беда, попробуй ещё раз!'},
+  {cat:'🏆 Победа',      text:'УРА! Ты прошёл уровень!'},
+  {cat:'💡 Подсказка',   text:'Подсказка: посмотри внимательно…'},
+];
 
-// Инициализация
-function initProject(){
-  project = {
-    meta: {title:'Тамагочи',subtitle:'Уровень А1',desc:'',subject:'german',audience:'a1'},
-    settings: {timer:30,lives:3,pass:75,shuffle:false,music:true,hints:true},
-    ui: {
-      color1:'#7c3aed',color2:'#ec4899',correct:'#22c55e',wrong:'#ef4444',
-      start:'Начать игру!',next:'Дальше →',win:'🎉 Молодец!',lose:'😢 Попробуй ещё раз!',
-      timer:'Осталось:',score:'Очки:',
-      anim:true,sfx:true,confetti:true,shake:true
-    },
-    langs: {}
-  };
-  LANGS.forEach(l => {
-    project.langs[l.code] = {
-      l1: buildL1(),
-      l2: buildL2(),
-      l3: buildL3(),
-      petPhrases: buildPhrases(),
-    };
-  });
-  project.pets  = buildPets();
-  project.shop  = JSON.parse(JSON.stringify(DEFAULT_SHOP));
-}
+// ============================================================
+// СОСТОЯНИЕ
+// ============================================================
+let state = {
+  lang: 'ru',
+  title: '',
+  subtitle: '',
+  desc: '',
+  subject: 'german',
+  audience: 'a1',
+  timer: 30,
+  lives: 3,
+  pass: 75,
+  shuffle: false,
+  music: true,
+  hints: true,
+  l1: [], // [{theme, words:[{word,trans}]}]
+  l2: [], // [{theme, pairs:[{a,b}]}]
+  l3: [], // [{text,answer}]
+  pets: PET_STAGES.map(p=>({...p})),
+  phrases: DEMO_PHRASES.map(p=>({...p})),
+  shop: DEFAULT_SHOP.map(s=>({...s})),
+  ui: {
+    color1:'#7c3aed', color2:'#ec4899',
+    bgcolor:'#0f0c1a', textcolor:'#e2e8f0',
+    font:'Nunito', fontsize:'15px',
+    bgstyle:'gradient', animspeed:'normal',
+    soundCorrect:true, soundWrong:true,
+    soundLevelup:true, soundCoins:true,
+  }
+};
 
-function buildL1(){
-  const d = {};
-  THEMES_L1.forEach(t => { d[t.id] = Array(10).fill(''); });
-  return d;
-}
-function buildL2(){
-  const d = {};
-  THEMES_L2.forEach(t => { d[t.id] = Array(10).fill(null).map(()=>({v:'',n:''})); });
-  return d;
-}
-function buildL3(){
-  return Array(20).fill(null).map((_,i)=>({
-    text:'', ans:'', cat: THEMES_L3[i%4].id
-  }));
-}
-function buildPhrases(){
-  const d = {};
-  PET_PHRASE_KEYS.forEach(k=>{ d[k.key]=''; });
-  return d;
-}
-function buildPets(){
-  return PET_STAGES.map(p=>({...p}));
-}
-
-// ══════════════════════════════════════════════
-//  РЕНДЕР
-// ══════════════════════════════════════════════
-
-function renderAll(){
-  renderLangGrid();
-  renderL1();
-  renderL2();
-  renderL3();
+// ============================================================
+// ИНИЦИАЛИЗАЦИЯ
+// ============================================================
+function init(){
+  buildLangGrid();
+  initL1();
+  initL2();
+  initL3();
   renderPets();
+  renderPhrases();
   renderShop();
-  renderPetPhrases();
-  loadMeta();
-  loadSettings();
-  loadUI();
-  updateStats();
+  syncFromState();
   updatePreview();
+  updateStats();
 }
 
-// --- Языки ---
-function renderLangGrid(){
+// ============================================================
+// ЯЗЫКИ
+// ============================================================
+function buildLangGrid(){
   const g = document.getElementById('lang-grid');
   g.innerHTML = LANGS.map(l=>`
-    <div class="lbtn${l.code===curLang?' on':''}" onclick="switchLang('${l.code}')">
+    <div class="lbtn ${l.code===state.lang?'on':''}"
+         onclick="setLang('${l.code}')">
       <span class="lbtn-flag">${l.flag}</span>
       <div class="lbtn-name">${l.name}</div>
-    </div>
-  `).join('');
-  document.getElementById('cur-lang-lbl').textContent = curLang.toUpperCase();
+    </div>`).join('');
+  renderLangBanner();
 }
 
-function switchLang(code){
-  saveCurrent();
-  curLang = code;
-  renderLangGrid();
+function renderLangBanner(){
+  const l = LANGS.find(x=>x.code===state.lang);
+  document.getElementById('lang-banner').innerHTML = `
+    <div class="lang-banner">
+      <span class="lang-banner-flag">${l.flag}</span>
+      <div>
+        <div class="lang-banner-name">${l.name}</div>
+        <div class="lang-banner-hint">${l.hint}</div>
+      </div>
+    </div>`;
+  const lbl = l.name.toUpperCase().slice(0,2);
+  ['l1-lang-lbl','l2-lang-lbl','l3-lang-lbl'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent=lbl;
+  });
+  const pb=document.getElementById('phrases-lang-lbl');
+  if(pb) pb.textContent=lbl;
+  const sl=document.getElementById('side-lang');
+  if(sl) sl.textContent=lbl;
+  const stl=document.getElementById('stat-lang');
+  if(stl) stl.textContent=lbl;
+}
+
+function setLang(code){
+  state.lang = code;
+  buildLangGrid();
+  toast(`🌐 Язык изменён на ${LANGS.find(l=>l.code===code).name}`,'info');
+  sync();
+}
+
+// ============================================================
+// УРОВЕНЬ 1
+// ============================================================
+function initL1(){
+  if(state.l1.length===0){
+    state.l1 = THEMES_L1.map(t=>({
+      theme: t.name,
+      ico: t.ico,
+      words: Array.from({length:10},(_,i)=>({word:'',trans:''}))
+    }));
+  }
   renderL1();
-  renderL2();
-  renderL3();
-  renderPetPhrases();
-  updateStats();
-  updatePreview();
-  toast(`🌐 Язык: ${code.toUpperCase()}`,'pu');
 }
 
-// --- Уровень 1 ---
 function renderL1(){
-  const container = document.getElementById('l1-themes');
-  const ld = project.langs[curLang].l1;
-  container.innerHTML = THEMES_L1.map((t,ti)=>{
-    const words = ld[t.id];
-    const rows = words.map((w,i)=>`
-      <div class="wrow">
-        <span class="wrow-n">${i+1}</span>
-        <input type="text" value="${esc(w)}" placeholder="Слово ${i+1}..."
-          oninput="setL1('${t.id}',${i},this.value)">
-        <button class="btn btn-ghost btn-xs btn-ico" onclick="clearWord('l1','${t.id}',${i})" title="Очистить">✕</button>
-      </div>
-    `).join('');
-    return `
-      <div class="tacc${ti===0?' open':''}" id="tacc-l1-${t.id}">
-        <div class="tacc-hdr" onclick="toggleAcc(this)">
-          <div class="tacc-left">
-            <span class="tacc-ico">${t.icon}</span>
-            <span class="tacc-name">${t.name}</span>
-            <span class="tacc-info">(${words.filter(w=>w).length}/10)</span>
-          </div>
-          <span class="tacc-arr">▼</span>
+  const c = document.getElementById('l1-themes');
+  c.innerHTML = state.l1.map((th,ti)=>`
+    <div class="tacc ${ti===0?'open':''}" id="l1-th-${ti}">
+      <div class="tacc-hdr" onclick="toggleAcc('l1-th-${ti}')">
+        <div class="tacc-left">
+          <span class="tacc-ico">${th.ico}</span>
+          <span class="tacc-name">${th.theme}</span>
+          <span class="tacc-info">${th.words.filter(w=>w.word).length}/10</span>
         </div>
-        <div class="tacc-body">
-          ${rows}
-          <button class="btn btn-ghost btn-xs mt8" onclick="clearTheme('l1','${t.id}')">🗑 Очистить тему</button>
-        </div>
+        <span class="tacc-arr">▼</span>
       </div>
-    `;
-  }).join('');
-  updateL1Count();
+      <div class="tacc-body">
+        <div class="f mb8">
+          <label>Название темы</label>
+          <input type="text" value="${th.theme}"
+            oninput="state.l1[${ti}].theme=this.value;updateAccName('l1-th-${ti}',this.value);sync()">
+        </div>
+        ${th.words.map((w,wi)=>`
+          <div class="wrow">
+            <span class="wrow-n">${wi+1}</span>
+            <input type="text" placeholder="Слово (${state.lang})"
+              value="${w.word}"
+              oninput="state.l1[${ti}].words[${wi}].word=this.value;sync()">
+            <span style="color:var(--pk);font-size:12px">→</span>
+            <input type="text" placeholder="Перевод (ru)"
+              value="${w.trans}"
+              oninput="state.l1[${ti}].words[${wi}].trans=this.value;sync()">
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
 }
 
-function setL1(themeIdПродолжаю:
-
-```javascript
-,idx,val){
-  project.langs[curLang].l1[themeId][idx] = val;
-  updateL1Count();
-  updateStats();
-  updatePreview();
-}
-
-function updateL1Count(){
-  let total = 0;
-  THEMES_L1.forEach(t=>{
-    total += project.langs[curLang].l1[t.id].filter(w=>w).length;
-  });
-  document.getElementById('l1-cnt').textContent = total+' слов';
-  document.getElementById('stat-l1').textContent = total;
-}
-
-function clearWord(level,themeId,idx){
-  if(level==='l1'){
-    project.langs[curLang].l1[themeId][idx]='';
-    renderL1();
+// ============================================================
+// УРОВЕНЬ 2
+// ============================================================
+function initL2(){
+  if(state.l2.length===0){
+    state.l2 = THEMES_L2.map(t=>({
+      theme: t.name,
+      ico: t.ico,
+      pairs: Array.from({length:10},()=>({a:'',b:''}))
+    }));
   }
-  if(level==='l2'){
-    project.langs[curLang].l2[themeId][idx].v='';
-    project.langs[curLang].l2[themeId][idx].n='';
-    renderL2();
-  }
-}
-
-function clearTheme(level,themeId){
-  if(!confirm('Очистить всю тему?')) return;
-  if(level==='l1') project.langs[curLang].l1[themeId]=Array(10).fill('');
-  if(level==='l2') project.langs[curLang].l2[themeId]=Array(10).fill(null).map(()=>({v:'',n:''}));
-  renderL1();
   renderL2();
-  toast('🗑 Тема очищена','ye');
 }
 
-// --- Уровень 2 ---
 function renderL2(){
-  const container = document.getElementById('l2-themes');
-  const ld = project.langs[curLang].l2;
-  container.innerHTML = THEMES_L2.map((t,ti)=>{
-    const pairs = ld[t.id];
-    const rows = pairs.map((p,i)=>`
-      <div class="prow">
-        <span class="wrow-n">${i+1}</span>
-        <input type="text" value="${esc(p.v)}" placeholder="Глагол / основа..."
-          oninput="setL2('${t.id}',${i},'v',this.value)">
-        <span class="prow-arr">→</span>
-        <input type="text" value="${esc(p.n)}" placeholder="Дополнение..."
-          oninput="setL2('${t.id}',${i},'n',this.value)">
-        <button class="btn btn-ghost btn-xs btn-ico" onclick="clearWord('l2','${t.id}',${i})" title="Очистить">✕</button>
+  const c = document.getElementById('l2-themes');
+  c.innerHTML = state.l2.map((th,ti)=>`
+    <div class="tacc ${ti===0?'open':''}" id="l2-th-${ti}">
+      <div class="tacc-hdr" onclick="toggleAcc('l2-th-${ti}')">
+        <div class="tacc-left">
+          <span class="tacc-ico">${th.ico}</span>
+          <span class="tacc-name">${th.theme}</span>
+          <span class="tacc-info">${th.pairs.filter(p=>p.a).length}/10</span>
+        </div>
+        <span class="tacc-arr">▼</span>
       </div>
-    `).join('');
-    return `
-      <div class="tacc${ti===0?' open':''}" id="tacc-l2-${t.id}">
-        <div class="tacc-hdr" onclick="toggleAcc(this)">
-          <div class="tacc-left">
-            <span class="tacc-ico">${t.icon}</span>
-            <span class="tacc-name">${t.name}</span>
-            <span class="tacc-info">(${pairs.filter(p=>p.v&&p.n).length}/10)</span>
-          </div>
-          <span class="tacc-arr">▼</span>
+      <div class="tacc-body">
+        <div class="f mb8">
+          <label>Название темы</label>
+          <input type="text" value="${th.theme}"
+            oninput="state.l2[${ti}].theme=this.value;updateAccName('l2-th-${ti}',this.value);sync()">
         </div>
-        <div class="tacc-body">
-          ${rows}
-          <button class="btn btn-ghost btn-xs mt8" onclick="clearTheme('l2','${t.id}')">🗑 Очистить тему</button>
-        </div>
+        ${th.pairs.map((p,pi)=>`
+          <div class="prow">
+            <span class="wrow-n">${pi+1}</span>
+            <input type="text" placeholder="Часть А"
+              value="${p.a}"
+              oninput="state.l2[${ti}].pairs[${pi}].a=this.value;sync()">
+            <span class="prow-sep">↔</span>
+            <input type="text" placeholder="Часть Б"
+              value="${p.b}"
+              oninput="state.l2[${ti}].pairs[${pi}].b=this.value;sync()">
+          </div>`).join('')}
       </div>
-    `;
-  }).join('');
-  updateL2Count();
+    </div>`).join('');
 }
 
-function setL2(themeId,idx,field,val){
-  project.langs[curLang].l2[themeId][idx][field]=val;
-  updateL2Count();
-  updateStats();
-}
-
-function updateL2Count(){
-  let total=0;
-  THEMES_L2.forEach(t=>{
-    total+=project.langs[curLang].l2[t.id].filter(p=>p.v&&p.n).length;
-  });
-  document.getElementById('l2-cnt').textContent=total+' пар';
-  document.getElementById('stat-l2').textContent=total;
-}
-
-// --- Уровень 3 ---
-function renderL3(){
-  const container=document.getElementById('l3-provs');
-  const provs=project.langs[curLang].l3;
-  container.innerHTML=provs.map((p,i)=>{
-    const theme=THEMES_L3.find(t=>t.id===p.cat)||THEMES_L3[0];
-    return `
-      <div class="provrow ani">
-        <div class="provrow-top">
-          <span class="prov-n">${i+1}</span>
-          <span class="prov-cat">${theme.icon} ${theme.name}</span>
-          <select style="margin-left:auto;background:var(--inp);border:1px solid var(--border);
-            color:var(--text);border-radius:5px;font-size:10px;padding:2px 5px;outline:none"
-            onchange="setL3Cat(${i},this.value)">
-            ${THEMES_L3.map(t=>`<option value="${t.id}"${t.id===p.cat?' selected':''}>${t.icon} ${t.name}</option>`).join('')}
-          </select>
-          <button class="btn btn-danger btn-xs btn-ico" onclick="delProv(${i})" title="Удалить">✕</button>
-        </div>
-        <input class="prov-text" type="text" value="${esc(p.text)}"
-          placeholder="Фраза с пропуском: Лучший _____ — это книга"
-          oninput="setL3(${i},'text',this.value)">
-        <div class="prov-ans-row">
-          <span class="prov-ans-lbl">✅ Ответ:</span>
-          <input class="prov-ans" type="text" value="${esc(p.ans)}"
-            placeholder="пропущенное слово"
-            oninput="setL3(${i},'ans',this.value)">
-        </div>
-      </div>
-    `;
-  }).join('');
-  updateL3Count();
-}
-
-function setL3(idx,field,val){
-  project.langs[curLang].l3[idx][field]=val;
-  updateL3Count();
-  updateStats();
-}
-
-function setL3Cat(idx,val){
-  project.langs[curLang].l3[idx].cat=val;
+// ============================================================
+// УРОВЕНЬ 3
+// ============================================================
+function initL3(){
+  if(state.l3.length===0){
+    state.l3 = Array.from({length:5},()=>({text:'',answer:''}));
+  }
   renderL3();
+}
+
+function renderL3(){
+  const c = document.getElementById('l3-provs');
+  c.innerHTML = state.l3.map((ph,i)=>`
+    <div class="phrow">
+      <div class="phrow-top">
+        <span class="phrow-n">#${i+1}</span>
+        <span class="phrow-cat">Фраза с пропуском</span>
+        <button class="btn btn-re btn-xs" style="margin-left:auto"
+          onclick="removeProv(${i})">✕</button>
+      </div>
+      <input class="ph-text" type="text"
+        placeholder="Например: Ich _____ Deutsch (я учу немецкий)"
+        value="${ph.text}"
+        oninput="state.l3[${i}].text=this.value;sync()">
+      <div class="phrow-ans">
+        <span class="phrow-ans-lbl">✅ Ответ:</span>
+        <input class="ph-ans" type="text"
+          placeholder="lerne"
+          value="${ph.answer}"
+          oninput="state.l3[${i}].answer=this.value;sync()">
+      </div>
+    </div>`).join('');
+  const cnt=document.getElementById('l3-cnt');
+  if(cnt) cnt.textContent=state.l3.length+' фраз';
+  const sl=document.getElementById('side-l3');
+  if(sl) sl.textContent=state.l3.filter(p=>p.text).length;
 }
 
 function addProv(){
-  project.langs[curLang].l3.push({text:'',ans:'',cat:THEMES_L3[0].id});
+  state.l3.push({text:'',answer:''});
   renderL3();
-  toast('➕ Фраза добавлена','gr');
+  sync();
 }
 
-function delProv(idx){
-  project.langs[curLang].l3.splice(idx,1);
+function removeProv(i){
+  state.l3.splice(i,1);
   renderL3();
-  updateStats();
-  toast('🗑 Фраза удалена','ye');
+  sync();
 }
 
-function updateL3Count(){
-  const total=project.langs[curLang].l3.filter(p=>p.text&&p.ans).length;
-  document.getElementById('l3-cnt').textContent=total+' фраз';
-  document.getElementById('stat-l3').textContent=total;
-}
-
-// --- Питомцы ---
+// ============================================================
+// ПИТОМЦЫ
+// ============================================================
 function renderPets(){
-  const g=document.getElementById('pets-grid');
-  g.innerHTML=project.pets.map((p,i)=>`
+  const g = document.getElementById('pets-grid');
+  g.innerHTML = state.pets.map((p,i)=>`
     <div class="pet-card">
       <div class="pet-emo">${p.emoji}</div>
       <div class="pet-stage">${p.stage}</div>
       <div class="f">
-        <label>Эмодзи</label>
-        <input type="text" value="${esc(p.emoji)}" maxlength="4"
-          oninput="setPet(${i},'emoji',this.value)" style="text-align:center;font-size:20px">
+        <input type="text" value="${p.emoji}"
+          placeholder="Эмодзи"
+          oninput="state.pets[${i}].emoji=this.value;renderPets();sync()"
+          style="text-align:center;font-size:20px">
       </div>
-      <div class="f">
-        <label>Название</label>
-        <input type="text" value="${esc(p.stage)}"
-          oninput="setPet(${i},'stage',this.value)">
+      <div style="font-size:9px;color:var(--muted)">${p.desc}</div>
+    </div>`).join('');
+}
+
+function renderPhrases(){
+  const c = document.getElementById('pet-phrases');
+  c.innerHTML = state.phrases.map((ph,i)=>`
+    <div class="phrow">
+      <div class="phrow-top">
+        <span class="phrow-cat">${ph.cat}</span>
       </div>
-      <div class="f">
-        <label>Описание</label>
-        <input type="text" value="${esc(p.desc)}"
-          oninput="setPet(${i},'desc',this.value)">
-      </div>
-    </div>
-  `).join('');
-  document.getElementById('stat-pets').textContent=project.pets.length;
+      <input class="ph-text" type="text"
+        value="${ph.text}"
+        oninput="state.phrases[${i}].text=this.value;sync()">
+    </div>`).join('');
 }
 
-function setPet(idx,field,val){
-  project.pets[idx][field]=val;
-  if(field==='emoji') updatePreview();
-}
-
-// --- Реплики питомца ---
-function renderPetPhrases(){
-  const c=document.getElementById('pet-phrases');
-  const phrases=project.langs[curLang].petPhrases;
-  c.innerHTML=PET_PHRASE_KEYS.map(k=>`
-    <div class="f">
-      <label>${k.label}</label>
-      <input type="text" value="${esc(phrases[k.key]||'')}"
-        placeholder="Введите реплику..."
-        oninput="setPhrase('${k.key}',this.value)">
-    </div>
-  `).join('');
-}
-
-function setPhrase(key,val){
-  project.langs[curLang].petPhrases[key]=val;
-}
-
-// --- Магазин ---
+// ============================================================
+// МАГАЗИН
+// ============================================================
 function renderShop(){
-  const g=document.getElementById('shop-grid');
-  g.innerHTML=project.shop.map((item,i)=>`
+  const g = document.getElementById('shop-grid');
+  g.innerHTML = state.shop.map((it,i)=>`
     <div class="shop-item">
-      <div class="shop-ico">${item.ico}</div>
+      <div class="shop-ico">${it.ico}</div>
       <div class="f">
         <label>Эмодзи</label>
-        <input type="text" value="${esc(item.ico)}" maxlength="4"
-          oninput="setShop(${i},'ico',this.value)" style="text-align:center;font-size:18px">
+        <input type="text" value="${it.ico}"
+          oninput="state.shop[${i}].ico=this.value;renderShop();sync()">
       </div>
       <div class="f">
         <label>Название</label>
-        <input type="text" value="${esc(item.name)}"
-          oninput="setShop(${i},'name',this.value)">
+        <input type="text" value="${it.name}"
+          oninput="state.shop[${i}].name=this.value;sync()">
       </div>
       <div class="f">
-        <label>Цена (монеты)</label>
-        <input type="number" value="${item.price}" min="1" max="999"
-          oninput="setShop(${i},'price',+this.value)">
+        <label>Цена 🪙</label>
+        <input type="number" value="${it.price}" min="1" max="99"
+          oninput="state.shop[${i}].price=+this.value;sync()">
       </div>
-      <div class="f">
-        <label>Эффект</label>
-        <select onchange="setShop(${i},'effect',this.value)">
-          <option value="hunger"${item.effect==='hunger'?' selected':''}>🍎 Насыщение</option>
-          <option value="fun"${item.effect==='fun'?' selected':''}>🎮 Веселье</option>
-          <option value="hygiene"${item.effect==='hygiene'?' selected':''}>🛁 Гигиена</option>
-          <option value="health"${item.effect==='health'?' selected':''}>💊 Здоровье</option>
-        </select>
-      </div>
-      <div class="shop-price">💰 ${item.price} монет</div>
-      <button class="btn btn-danger btn-xs w100 mt8" onclick="delShopItem(${i})">🗑 Удалить</button>
-    </div>
-  `).join('');
-  document.getElementById('stat-shop').textContent=project.shop.length;
-}
-
-function setShop(idx,field,val){
-  project.shop[idx][field]=val;
-  if(field==='ico'||field==='price') renderShop();
+      <button class="btn btn-re btn-xs w100 mt8"
+        onclick="removeShopItem(${i})">🗑 Удалить</button>
+    </div>`).join('');
+  const ss=document.getElementById('stat-shop');
+  if(ss) ss.textContent=state.shop.length;
 }
 
 function addShopItem(){
-  project.shop.push({ico:'🎁',name:'Новый предмет',price:10,effect:'fun'});
+  state.shop.push({ico:'⭐',name:'Новый предмет',price:5,effect:'fun'});
   renderShop();
-  toast('➕ Предмет добавлен','gr');
+  sync();
 }
 
-function delShopItem(idx){
-  if(!confirm('Удалить предмет?')) return;
-  project.shop.splice(idx,1);
+function removeShopItem(i){
+  state.shop.splice(i,1);
   renderShop();
-  toast('🗑 Предмет удалён','ye');
+  sync();
+  toast('🗑 Предмет удалён','info');
 }
 
-// ══════════════════════════════════════════════
-//  МЕТА / НАСТРОЙКИ / UI
-// ══════════════════════════════════════════════
-
-function saveCurrent(){
-  project.meta={
-    title:val('g-title'),
-    subtitle:val('g-subtitle'),
-    desc:val('g-desc'),
-    subject:val('g-subject'),
-    audience:val('g-audience')
-  };
-  project.settings={
-    timer:+val('g-timer'),
-    lives:+val('g-lives'),
-    pass:+val('g-pass'),
-    shuffle:chk('g-shuffle'),
-    music:chk('g-music'),
-    hints:chk('g-hints')
-  };
-  project.ui={
-    color1:val('ui-color1'),
-    color2:val('ui-color2'),
-    correct:val('ui-correct'),
-    wrong:val('ui-wrong'),
-    start:val('ui-start'),
-    next:val('ui-next'),
-    win:val('ui-win'),
-    lose:val('ui-lose'),
-    timer:val('ui-timer'),
-    score:val('ui-score'),
-    anim:chk('ui-anim'),
-    sfx:chk('ui-sfx'),
-    confetti:chk('ui-confetti'),
-    shake:chk('ui-shake')
-  };
-}
-
-function loadMeta(){
-  set('g-title',project.meta.title);
-  set('g-subtitle',project.meta.subtitle);
-  set('g-desc',project.meta.desc);
-  set('g-subject',project.meta.subject);
-  set('g-audience',project.meta.audience);
-}
-
-function loadSettings(){
-  set('g-timer',project.settings.timer);
-  set('g-lives',project.settings.lives);
-  set('g-pass',project.settings.pass);
-  setCk('g-shuffle',project.settings.shuffle);
-  setCk('g-music',project.settings.music);
-  setCk('g-hints',project.settings.hints);
-}
-
-function loadUI(){
-  set('ui-color1',project.ui.color1);
-  set('ui-color2',project.ui.color2);
-  set('ui-correct',project.ui.correct);
-  set('ui-wrong',project.ui.wrong);
-  set('ui-start',project.ui.start);
-  set('ui-next',project.ui.next);
-  set('ui-win',project.ui.win);
-  set('ui-lose',project.ui.lose);
-  set('ui-timer',project.ui.timer);
-  set('ui-score',project.ui.score);
-  setCk('ui-anim',project.ui.anim);
-  setCk('ui-sfx',project.ui.sfx);
-  setCk('ui-confetti',project.ui.confetti);
-  setCk('ui-shake',project.ui.shake);
-}
-
+// ============================================================
+// СИНХРОНИЗАЦИЯ
+// ============================================================
 function sync(){
-  saveCurrent();
+  state.title    = v('g-title');
+  state.subtitle = v('g-subtitle');
+  state.desc     = v('g-desc');
+  state.subject  = v('g-subject');
+  state.audience = v('g-audience');
+  state.timer    = +v('g-timer');
+  state.lives    = +v('g-lives');
+  state.pass     = +v('g-pass');
+  state.shuffle  = document.getElementById('g-shuffle').checked;
+  state.music    = document.getElementById('g-music').checked;
+  state.hints    = document.getElementById('g-hints').checked;
+  state.ui.color1      = v('ui-color1');
+  state.ui.color2      = v('ui-color2');
+  state.ui.bgcolor     = v('ui-bgcolor');
+  state.ui.textcolor   = v('ui-textcolor');
+  state.ui.font        = v('ui-font');
+  state.ui.fontsize    = v('ui-fontsize');
+  state.ui.bgstyle     = v('ui-bgstyle');
+  state.ui.animspeed   = v('ui-animspeed');
+  state.ui.soundCorrect  = document.getElementById('ui-sound-correct').checked;
+  state.ui.soundWrong    = document.getElementById('ui-sound-wrong').checked;
+  state.ui.soundLevelup  = document.getElementById('ui-sound-levelup').checked;
+  state.ui.soundCoins    = document.getElementById('ui-sound-coins').checked;
   updatePreview();
   updateStats();
+  updateJSON();
 }
 
-// ══════════════════════════════════════════════
-//  НАВИГАЦИЯ
-// ══════════════════════════════════════════════
-
-function goTab(id,btn){
-  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
-  document.getElementById('sec-'+id).classList.add('on');
-  btn.classList.add('on');
-  if(id==='export') generateCodePreview();
+function syncFromState(){
+  set('g-title',    state.title);
+  set('g-subtitle', state.subtitle);
+  set('g-desc',     state.desc);
+  set('g-subject',  state.subject);
+  set('g-audience', state.audience);
+  set('g-timer',    state.timer);
+  set('g-lives',    state.lives);
+  set('g-pass',     state.pass);
+  document.getElementById('g-shuffle').checked = state.shuffle;
+  document.getElementById('g-music').checked   = state.music;
+  document.getElementById('g-hints').checked   = state.hints;
+  set('ui-color1',    state.ui.color1);
+  set('ui-color2',    state.ui.color2);
+  set('ui-bgcolor',   state.ui.bgcolor);
+  set('ui-textcolor', state.ui.textcolor);
+  set('ui-font',      state.ui.font);
+  set('ui-fontsize',  state.ui.fontsize);
+  set('ui-bgstyle',   state.ui.bgstyle);
+  set('ui-animspeed', state.ui.animspeed);
+  document.getElementById('ui-sound-correct').checked  = state.ui.soundCorrect;
+  document.getElementById('ui-sound-wrong').checked    = state.ui.soundWrong;
+  document.getElementById('ui-sound-levelup').checked  = state.ui.soundLevelup;
+  document.getElementById('ui-sound-coins').checked    = state.ui.soundCoins;
 }
 
-function toggleAcc(hdr){
-  hdr.parentElement.classList.toggle('open');
-}
+function v(id){ const el=document.getElementById(id); return el?el.value:''; }
+function set(id,val){ const el=document.getElementById(id); if(el) el.value=val; }
 
-// ══════════════════════════════════════════════
-//  ПРЕВЬЮ
-// ══════════════════════════════════════════════
-
+// ============================================================
+// ПРЕВЬЮ И СТАТИСТИКА
+// ============================================================
 function updatePreview(){
-  const pet=project.pets[0]||{emoji:'🥚'};
-  document.getElementById('prev-pet').textContent=pet.emoji;
-  document.getElementById('prev-title').textContent=
-    (project.meta.title||'ТАМАГОЧИ').toUpperCase().slice(0,12);
-
-  const l1=project.langs[curLang].l1;
-  const theme=THEMES_L1[0];
-  const words=l1[theme.id].filter(w=>w);
-  if(words.length>0){
-    document.getElementById('prev-q').textContent=
-      `Выберите слово по теме «${theme.name}»:`;
-    const opts=document.getElementById('prev-opts');
-    const sample=words.slice(0,4);
-    opts.innerHTML=sample.map((w,i)=>
-      `<div class="prev-opt${i===0?' ok':''}">${w}</div>`
-    ).join('');
-  }
+  const pt=document.getElementById('prev-title');
+  if(pt) pt.textContent=state.title||'Тамагочи';
+  const pp=document.getElementById('prev-pet');
+  if(pp) pp.textContent=state.pets[0]?state.pets[0].emoji:'🥚';
+  const w1 = state.l1[0]&&state.l1[0].words.find(w=>w.word);
+  const pq=document.getElementById('prev-q');
+  if(pq) pq.textContent=w1?`Как переводится: «${w1.word}»?`:'Как переводится слово?';
 }
-
-// ══════════════════════════════════════════════
-//  СТАТИСТИКА
-// ══════════════════════════════════════════════
 
 function updateStats(){
-  document.getElementById('stat-lang').textContent=curLang.toUpperCase();
-  updateL1Count();
-  updateL2Count();
-  updateL3Count();
-  document.getElementById('stat-pets').textContent=project.pets.length;
-  document.getElementById('stat-shop').textContent=project.shop.length;
+  const l1c = state.l1.reduce((s,t)=>s+t.words.filter(w=>w.word).length,0);
+  const l2c = state.l2.reduce((s,t)=>s+t.pairs.filter(p=>p.a).length,0);
+  const l3c = state.l3.filter(p=>p.text).length;
+  const sl1=document.getElementById('side-l1'); if(sl1) sl1.textContent=l1c;
+  const sl2=document.getElementById('side-l2'); if(sl2) sl2.textContent=l2c;
+  const sl3=document.getElementById('side-l3'); if(sl3) sl3.textContent=l3c;
+  const stl1=document.getElementById('stat-l1'); if(stl1) stl1.textContent=l1c;
+  const stl2=document.getElementById('stat-l2'); if(stl2) stl2.textContent=l2c;
+  const stl3=document.getElementById('stat-l3'); if(stl3) stl3.textContent=l3c;
+  const l1cnt=document.getElementById('l1-cnt'); if(l1cnt) l1cnt.textContent=l1c+' слов';
+  const l2cnt=document.getElementById('l2-cnt'); if(l2cnt) l2cnt.textContent=l2c+' пар';
+  const l3cnt=document.getElementById('l3-cnt'); if(l3cnt) l3cnt.textContent=l3c+' фраз';
 }
 
-// ══════════════════════════════════════════════
-//  ЭКСПОРТ / ИМПОРТ
-// ══════════════════════════════════════════════
+function updateJSON(){
+  const box=document.getElementById('json-preview');
+  if(box) box.textContent=JSON.stringify(state,null,2).slice(0,1200)+'...';
+}
 
+// ============================================================
+// ТАБЫ И АККОРДЕОНЫ
+// ============================================================
+function goTab(name,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  el.classList.add('on');
+  const sec=document.getElementById('sec-'+name);
+  if(sec) sec.classList.add('on');
+  if(name==='export') updateJSON();
+}
+
+function toggleAcc(id){
+  document.getElementById(id).classList.toggle('open');
+}
+
+function updateAccName(id,val){
+  const el=document.querySelector('#'+id+' .tacc-name');
+  if(el) el.textContent=val;
+}
+
+// ============================================================
+// ДЕМО ДАННЫЕ
+// ============================================================
+function fillDemo(){
+  state.title    = 'Тамагочи — Немецкий А1';
+  state.subtitle = 'Уровень А1';
+  state.desc     = 'Учим немецкий язык с питомцем!';
+  state.l1[0].words=[
+    {word:'Hund',trans:'Собака'},{word:'Katze',trans:'Кошка'},
+    {word:'Haus',trans:'Дом'},{word:'Auto',trans:'Машина'},
+    {word:'Buch',trans:'Книга'},{word:'Tisch',trans:'Стол'},
+    {word:'Stuhl',trans:'Стул'},{word:'Kind',trans:'Ребёнок'},
+    {word:'Mann',trans:'Мужчина'},{word:'Frau',trans:'Женщина'},
+  ];
+  state.l2[0].pairs=[
+    {a:'Guten Morgen',b:'Доброе утро'},{a:'Guten Tag',b:'Добрый день'},
+    {a:'Gute Nacht',b:'Спокойной ночи'},{a:'Danke',b:'Спасибо'},
+    {a:'Bitte',b:'Пожалуйста'},{a:'Entschuldigung',b:'Извините'},
+    {a:'Ja',b:'Да'},{a:'Nein',b:'Нет'},
+    {a:'Wie geht es?',b:'Как дела?'},{a:'Auf Wiedersehen',b:'До свидания'},
+  ];
+  state.l3=[
+    {text:'Ich _____ Deutsch.',answer:'lerne'},
+    {text:'Das _____ ein Hund.',answer:'ist'},
+    {text:'Wir _____ in Berlin.',answer:'wohnen'},
+    {text:'Er _____ ein Buch.',answer:'liest'},
+    {text:'Sie _____ Kaffee.',answer:'trinkt'},
+  ];
+  syncFromState();
+  renderL1(); renderL2(); renderL3();
+  updatePreview(); updateStats();
+  toast('🎲 Демо данные загружены!','ok');
+}
+
+// ============================================================
+// СОХРАНЕНИЕ / ЗАГРУЗКА
+// ============================================================
 function saveProject(){
-  saveCurrent();
-  const json=JSON.stringify(project,null,2);
-  download('tamagotchi-project.json',json,'application/json');
-  toast('💾 Проект сохранён!','gr');
-}
-
-function exportJSON(){
-  saveCurrent();
-  const json=JSON.stringify(project.langs[curLang],null,2);
-  download(`tamagotchi-${curLang}.json`,json,'application/json');
-  toast('📋 Данные экспортированы!','gr');
+  const json=JSON.stringify(state,null,2);
+  const blob=new Blob([json],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='tamagotchi-project.json';
+  a.click();
+  toast('💾 Проект сохранён!','ok');
 }
 
 function loadProject(){
-  document.getElementById('modal-import').style.display='flex';
+  document.getElementById('file-input').click();
+}
+
+function handleFile(e){
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    try{
+      const data=JSON.parse(ev.target.result);
+      Object.assign(state,data);
+      syncFromState();
+      buildLangGrid();
+      renderL1(); renderL2(); renderL3();
+      renderPets(); renderPhrases(); renderShop();
+      updatePreview(); updateStats();
+      toast('📂 Проект загружен!','ok');
+    }catch(err){
+      toast('❌ Ошибка загрузки файла','err');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value='';
+}
+
+// ============================================================
+// ОЧИСТКА
+// ============================================================
+function clearAll(){
+  if(!confirm('Очистить все данные?')) return;
+  state.title=''; state.subtitle=''; state.desc='';
+  state.l1=THEMES_L1.map(t=>({
+    theme:t.name,ico:t.ico,
+    words:Array.from({length:10},()=>({word:'',trans:''}))
+  }));
+  state.l2=THEMES_L2.map(t=>({
+    theme:t.name,ico:t.ico,
+    pairs:Array.from({length:10},()=>({a:'',b:''}))
+  }));
+  state.l3=Array.from({length:5},()=>({text:'',answer:''}));
+  syncFromState();
+  renderL1(); renderL2(); renderL3();
+  updatePreview(); updateStats();
+  toast('🗑 Данные очищены','info');
+}
+
+// ============================================================
+// ПРЕВЬЮ МОДАЛЬНОЕ
+// ============================================================
+function openPreview(){
+  const b=document.getElementById('modal-preview-body');
+  const w1=state.l1[0]&&state.l1[0].words.find(w=>w.word);
+  b.innerHTML=`
+    <div style="text-align:center;padding:10px">
+      <div style="font-size:48px;margin-bottom:8px">${state.pets[2]?state.pets[2].emoji:'🐱'}</div>
+      <div style="font-family:var(--fp);font-size:10px;color:#a78bfa;margin-bottom:4px">
+        ${state.title||'Тамагочи'}</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:16px">
+        ${state.subtitle||'Уровень А1'}</div>
+    </div>
+    <div class="prev-q" style="margin-bottom:8px">
+      ${w1?`Как переводится: «${w1.word}»?`:'Добавьте слова в Уровень 1'}
+    </div>
+    ${w1?`<div class="prev-opts">
+      <div class="prev-opt ok">✅ ${w1.trans||'Перевод'}</div>
+      <div class="prev-opt">Вариант 2</div>
+      <div class="prev-opt">Вариант 3</div>
+    </div>`:''}
+    <div class="divider"></div>
+    <div class="g3" style="margin-top:8px">
+      <div class="srow"><span class="srow-l">⏱ Таймер</span>
+        <span class="srow-v">${state.timer}с</span></div>
+      <div class="srow"><span class="srow-l">❤️ Жизни</span>
+        <span class="srow-v">${state.lives}</span></div>
+      <div class="srow"><span class="srow-l">🏆 Порог</span>
+        <span class="srow-v">${state.pass}%</span></div>
+    </div>`;
+  document.getElementById('modal-preview').classList.add('open');
 }
 
 function closeModal(id){
-  document.getElementById(id).style.display='none';
+  document.getElementById(id).classList.remove('open');
 }
 
-function readFile(input){
-  const f=input.files[0];
-  if(!f) return;
-  const r=new FileReader();
-  r.onload=e=>{
-    document.getElementById('import-json').value=e.target.result;
-  };
-  r.readAsText(f);
-}
-
-function doImport(){
-  try{
-    const raw=document.getElementById('import-json').value.trim();
-    const data=JSON.parse(raw);
-    if(data.langs&&data.meta){
-      project=data;
-    } else if(data.l1&&data.l2&&data.l3){
-      project.langs[curLang]=data;
-    } else {
-      throw new Error('Неверный формат');
-    }
-    closeModal('modal-import');
-    renderAll();
-    toast('📂 Проект загружен!','gr');
-  } catch(e){
-    toast('❌ Ошибка: '+e.message,'re');
-  }
-}
-
-function generateCodePreview(){
-  saveCurrent();
-  const preview=`// TAMAGOTCHI EDITOR EXPORT
-// Язык: ${curLang.toUpperCase()}
-// Дата: ${new Date().toLocaleString('ru')}
-
-const GAME_DATA = ${JSON.stringify({
-    meta: project.meta,
-    settings: project.settings,
-    ui: project.ui,
-    lang: curLang,
-    data: project.langs[curLang],
-    pets: project.pets,
-    shop: project.shop
-  },null,2)};`;
-  document.getElementById('code-preview').textContent=preview;
-
-  // Статистика экспорта
-  const s=document.getElementById('export-stats');
-  const ld=project.langs[curLang];
-  let l1c=0,l2c=0;
-  THEMES_L1.forEach(t=>{ l1c+=ld.l1[t.id].filter(w=>w).length; });
-  THEMES_L2.forEach(t=>{ l2c+=ld.l2[t.id].filter(p=>p.v&&p.n).length; });
-  const l3c=ld.l3.filter(p=>p.text&&p.ans).length;
-  s.innerHTML=`
-    <div class="srow"><span class="srow-l">Язык</span><span class="srow-v">${curLang.toUpperCase()}</span></div>
-    <div class="srow"><span class="srow-l">Слов (ур.1)</span><span class="srow-v">${l1c}/40</span></div>
-    <div class="srow"><span class="srow-l">Пар (ур.2)</span><span class="srow-v">${l2c}/40</span></div>
-    <div class="srow"><span class="srow-l">Фраз (ур.3)</span><span class="srow-v">${l3c}/20</span></div>
-    <div class="srow"><span class="srow-l">Питомцев</span><span class="srow-v">${project.pets.length}</span></div>
-    <div class="srow"><span class="srow-l">Предметов</span><span class="srow-v">${project.shop.length}</span></div>
-    <div class="srow"><span class="srow-l">Таймер</span><span class="srow-v">${project.settings.timer}с</span></div>
-    <div class="srow"><span class="srow-l">Жизни</span><span class="srow-v">${project.settings.lives}</span></div>
-  `;
-}
-
+// ============================================================
+// ЭКСПОРТ HTML
+// ============================================================
 function exportGame(){
-  saveCurrent();
-  const html=buildGameHTML();
-  download('tamagotchi-game.html',html,'text/html');
-  toast('🚀 Игра экспортирована!','gr');
-}
-
-function copyCode(){
-  const code=document.getElementById('code-preview').textContent;
-  navigator.clipboard.writeText(code).then(()=>{
-    toast('📄 Код скопирован!','pu');
-  });
-}
-
-function openPreview(){
-  saveCurrent();
-  const html=buildGameHTML();
-  const frame=document.getElementById('preview-frame');
-  frame.srcdoc=html;
-  document.getElementById('modal-preview').style.display='flex';
-}
-
-// ══════════════════════════════════════════════
-//  БЫСТРЫЕ ДЕЙСТВИЯ
-// ══════════════════════════════════════════════
-
-function fillDemo(){
-  const demoL1={
-    sleep:['schlafen','träumen','ruhen','dösen','gähnen','müde','Bett','Kissen','Decke','Nacht'],
-    food:['essen','trinken','kochen','Brot','Suppe','Salat','Fleisch','Obst','Gemüse','Wasser'],
-    play:['spielen','lachen','tanzen','singen','malen','basteln','lesen','Sport','Ball','Musik'],
-    walk:['gehen','laufen','springen','Weg','Park','Wald','Straße','Brücke','Berg','Fluss']
-  };
-  const demoL2={
-    clothes:Array(10).fill(null).map((_,i)=>[
-      ['anziehen','Jacke'],['ausziehen','Schuhe'],['waschen','Hemd'],['bügeln','Hose'],
-      ['kaufen','Kleid'],['nähen','Knopf'],['tragen','Mütze'],['falten','Pullover'],
-      ['trocknen','Socken'],['färben','Stoff']
-    ][i]).map(([v,n])=>({v,n})),
-    hobby:Array(10).fill(null).map((_,i)=>[
-      ['malen','Bild'],['lesen','Buch'],['spielen','Gitarre'],['fotografieren','Natur'],
-      ['kochen','Rezept'],['stricken','Wolle'],['sammeln','Briefmarken'],['zeichnen','Skizze'],
-      ['basteln','Papier'],['tanzen','Rhythmus']
-    ][i]).map(([v,n])=>({v,n})),
-    sick:Array(10).fill(null).map((_,i)=>[
-      ['haben','Fieber'],['nehmen','Tablette'],['messen','Temperatur'],['rufen','Arzt'],
-      ['trinken','Tee'],['liegen','Bett'],['husten','Nacht'],['fühlen','Schmerz'],
-      ['heilen','Wunde'],['schonen','Körper']
-    ][i]).map(([v,n])=>({v,n})),
-    hygiene:Array(10).fill(null).map((_,i)=>[
-      ['waschen','Hände'],['putzen','Zähne'],['kämmen','Haare'],['duschen','Morgen'],
-      ['schneiden','Nägel'],['benutzen','Seife'],['trocknen','Handtuch'],['reinigen','Gesicht'],
-      ['sprühen','Parfüm'],['pflegen','Haut']
-    ][i]).map(([v,n])=>({v,n}))
-  };
-  const demoL3=[
-    {text:'Übung macht den _____',ans:'Meister',cat:'knowledge'},
-    {text:'Freunde sind die Familie, die man _____',ans:'wählt',cat:'friend'},
-    {text:'Lachen ist die beste _____',ans:'Medizin',cat:'emotions'},
-    {text:'Nach dem Regen kommt der _____',ans:'Sonnenschein',cat:'holiday'},
-    {text:'Wer nicht wagt, der nicht _____',ans:'gewinnt',cat:'knowledge'},
-    {text:'Ein guter Freund ist wie ein _____',ans:'Schatz',cat:'friend'},
-    {text:'Das Leben ist schön, wenn man _____ ist',ans:'glücklich',cat:'emotions'},
-    {text:'Ohne Fleiß kein _____',ans:'Preis',cat:'knowledge'},
-    {text:'Viele Hände machen die Arbeit _____',ans:'leicht',cat:'friend'},
-    {text:'Wer lacht, lebt _____',ans:'länger',cat:'emotions'},
-    {text:'Ein Apfel am Tag hält den _____ fern',ans:'Arzt',cat:'holiday'},
-    {text:'Zeit ist _____',ans:'Geld',cat:'knowledge'},
-    {text:'Ehrlichkeit ist die beste _____',ans:'Politik',cat:'friend'},
-    {text:'Der frühe Vogel fängt den _____',ans:'Wurm',cat:'knowledge'},
-    {text:'Hunde, die bellen, _____',ans:'beißen nicht',cat:'friend'},
-    {text:'Wo ein Wille ist, ist auch ein _____',ans:'Weg',cat:'emotions'},
-    {text:'Ende gut, alles _____',ans:'gut',cat:'holiday'},
-    {text:'Liebe geht durch den _____',ans:'Magen',cat:'emotions'},
-    {text:'Morgen, morgen, nur nicht _____',ans:'heute',cat:'knowledge'},
-    {text:'Gut Ding will Weile _____',ans:'haben',cat:'knowledge'},
-  ];
-  project.langs[curLang].l1=demoL1;
-  project.langs[curLang].l2=demoL2;
-  project.langs[curLang].l3=demoL3;
-  renderL1();
-  renderL2();
-  renderL3();
-  updateStats();
-  updatePreview();
-  toast('🎲 Демо-данные загружены!','pu');
-}
-
-function clearAll(){
-  if(!confirm('Очистить все данные текущего языка?')) return;
-  project.langs[curLang].l1=buildL1();
-  project.langs[curLang].l2=buildL2();
-  project.langs[curLang].l3=buildL3();
-  renderL1();
-  renderL2();
-  renderL3();
-  updateStats();
-  updatePreview();
-  toast('🗑 Данные очищены','ye');
-}
-
-function validateAll(){
-  saveCurrent();
-  const ld=project.langs[curLang];
-  const errs=[];
-  let l1c=0;
-  THEMES_L1.forEach(t=>{
-    const c=ld.l1[t.id].filter(w=>w).length;
-    l1c+=c;
-    if(c<10) errs.push(`Уровень 1 «${t.name}»: ${c}/10 слов`);
-  });
-  let l2c=0;
-  THEMES_L2.forEach(t=>{
-    const c=ld.l2[t.id].filter(p=>p.v&&p.n).length;
-    l2c+=c;
-    if(c<10) errs.push(`Уровень 2 «${t.name}»: ${c}/10 пар`);
-  });
-  const l3c=ld.l3.filter(p=>p.text&&p.ans).length;
-  if(l3c<20) errs.push(`Уровень 3: ${l3c}/20 фраз`);
-  if(!project.meta.title) errs.push('Не указано название игры');
-
-  if(errs.length===0){
-    toast('✅ Все данные заполнены корректно!','gr');
-  } else {
-    errs.forEach((e,i)=>setTimeout(()=>toast('⚠️ '+e,'ye'),i*200));
+  sync();
+  const lang=LANGS.find(l=>l.code===state.lang);
+  const allWords=state.l1.flatMap(t=>t.words.filter(w=>w.word&&w.trans));
+  const allPairs=state.l2.flatMap(t=>t.pairs.filter(p=>p.a&&p.b));
+  const allPhrs=state.l3.filter(p=>p.text&&p.answer);
+  if(allWords.length<4){
+    toast('❌ Добавьте минимум 4 слова в Уровень 1','err'); return;
   }
-}
-
-// ══════════════════════════════════════════════
-//  ГЕНЕРАЦИЯ HTML ИГРЫ
-// ══════════════════════════════════════════════
-
-function buildGameHTML(){
-  saveCurrent();
-  const d=project.langs[curLang];
-  const m=project.meta;
-  const s=project.settings;
-  const u=project.ui;
-  const pets=project.pets;
-  const shop=project.shop;
-
-  return `<!DOCTYPE html>
-<html lang="${curLang}">
+  const html=`<!DOCTYPE html>
+<html lang="${state.lang}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${esc(m.title)||'Тамагочи'}</title>
+<title>${state.title||'Тамагочи'}</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=${encodeURIComponent(state.ui.font)}:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --pu:${u.color1};--pk:${u.color2};
-  --gr:${u.correct};--re:${u.wrong};
-  --bg:#0f0c1a;--card:#1a1628;--inp:#231d35;
-  --text:#e2e8f0;--muted:#94a3b8;
-  --fn:'Nunito',sans-serif;--fp:'Press Start 2P',monospace;
+  --pu:${state.ui.color1};
+  --pk:${state.ui.color2};
+  --bg:${state.ui.bgcolor};
+  --text:${state.ui.textcolor};
+  --fn:'${state.ui.font}',sans-serif;
+  --fp:'Press Start 2P',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${state.title||'Тамагочи'}</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=${encodeURIComponent(state.ui.font)}:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pu:${state.ui.color1};
+  --pk:${state.ui.color2};
+  --bg:${state.ui.bgcolor};
+  --text:${state.ui.textcolor};
+  --fn:'${state.ui.font}',sans-serif;
+  --fp:'Press Start 2P',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--fn);background:var(--bg);color:var(--text);
-  min-height:100vh;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;padding:20px}
-.game-wrap{width:100%;max-width:480px}
-.game-title{font-family:var(--fp);font-size:12px;text-align:center;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  font-size:${state.ui.fontsize}}
+.game{max-width:480px;width:100%;padding:16px}
+.hdr{text-align:center;margin-bottom:20px}
+.hdr-title{font-family:var(--fp);font-size:11px;
   background:linear-gradient(135deg,var(--pu),var(--pk));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;margin-bottom:8px}
-.pet-area{font-size:64px;text-align:center;margin:10px 0;
-  animation:fl 3s ease-in-out infinite}
+  background-clip:text;margin-bottom:4px}
+.hdr-sub{font-size:11px;opacity:.6}
+.pet-box{text-align:center;margin:16px 0}
+.pet-emo{font-size:72px;animation:fl 3s ease-in-out infinite;display:block}
 @keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.hud{display:flex;justify-content:space-between;align-items:center;
-  padding:8px 12px;background:var(--card);border-radius:12px;margin-bottom:12px;
-  font-family:var(--fp);font-size:8px}
-.question-box{background:var(--card);border-radius:14px;padding:16px;
-  margin-bottom:10px;font-size:13px;line-height:1.6;text-align:center}
-.options{display:flex;flex-direction:column;gap:7px}
-.opt{background:var(--inp);border:2px solid rgba(124,58,237,.25);border-radius:10px;
-  padding:10px 14px;cursor:pointer;transition:all .15s;font-size:13px;
-  text-align:center}
-.opt:hover{border-color:var(--pu);background:rgba(124,58,237,.15)}
-.opt.correct{border-color:var(--gr);background:rgba(34,197,94,.15);color:var(--gr)}
-.opt.wrong{border-color:var(--re);background:rgba(239,68,68,.15);color:var(--re)}
-.timer-bar{height:5px;background:rgba(255,255,255,.1);border-radius:5px;margin-bottom:10px;overflow:hidden}
+.pet-name{font-family:var(--fp);font-size:8px;color:var(--pu);margin-top:6px}
+.stats{display:flex;justify-content:center;gap:16px;margin-bottom:16px}
+.stat{text-align:center}
+.stat-val{font-family:var(--fp);font-size:12px;color:var(--pu)}
+.stat-lbl{font-size:9px;opacity:.5;margin-top:2px}
+.card{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);
+  border-radius:14px;padding:16px;margin-bottom:12px}
+.q-text{font-size:15px;font-weight:700;margin-bottom:14px;
+  text-align:center;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{padding:10px 14px;border-radius:10px;
+  background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.12);
+  cursor:pointer;font-size:13px;font-weight:700;transition:all .18s;text-align:center}
+.opt:hover{background:rgba(255,255,255,.1);transform:translateY(-1px)}
+.opt.ok{background:rgba(34,197,94,.15);border-color:#22c55e;color:#4ade80}
+.opt.err{background:rgba(239,68,68,.15);border-color:#ef4444;color:#f87171}
+.timer-bar{height:5px;background:rgba(255,255,255,.1);border-radius:3px;margin-bottom:12px}
 .timer-fill{height:100%;background:linear-gradient(90deg,var(--pu),var(--pk));
-  border-radius:5px;transition:width 1s linear}
-.input-box{width:100%;background:var(--inp);border:2px solid rgba(124,58,237,.25);
-  border-radius:10px;padding:10px 14px;color:var(--text);font-size:14px;
-  font-family:var(--fn);outline:none;margin-bottom:8px}
-.input-box:focus{border-color:var(--pu)}
+  border-radius:3px;transition:width .1s linear}
+.bubble{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  border-radius:12px;padding:8px 12px;font-size:11px;
+  text-align:center;margin-bottom:12px;font-style:italic;min-height:32px}
+.lvl-btns{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
+.lvl-btn{padding:6px 14px;border-radius:99px;font-size:11px;font-weight:700;
+  cursor:pointer;border:1.5px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.05);color:var(--text);transition:all .18s}
+.lvl-btn.on{background:linear-gradient(135deg,var(--pu),var(--pk));
+  border-color:transparent;color:#fff}
+.lvl-btn:hover{transform:translateY(-1px)}
+.fill-inp{width:100%;background:rgba(255,255,255,.05);
+  border:1.5px solid rgba(255,255,255,.15);border-radius:10px;
+  color:var(--text);font-family:var(--fn);font-size:15px;
+  padding:10px 14px;outline:none;text-align:center;margin-bottom:10px}
+.fill-inp:focus{border-color:var(--pu);box-shadow:0 0 0 3px rgba(124,58,237,.2)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  padding:10px 20px;border-radius:99px;font-family:var(--fn);font-size:13px;
-  font-weight:700;cursor:pointer;border:none;transition:all .15s;width:100%}
-.btn-pu{background:linear-gradient(135deg,var(--pu),#6d28d9);color:#fff}
-.btn-gr{background:linear-gradient(135deg,var(--gr),#16a34a);color:#fff}
-.btn:hover{transform:translateY(-1px);opacity:.9}
-.screen{display:none}.screen.on{display:block}
-.result-emoji{font-size:64px;text-align:center;margin:12px 0}
-.result-title{font-family:var(--fp);font-size:11px;text-align:center;margin-bottom:8px}
-.score-big{font-family:var(--fp);font-size:24px;text-align:center;
-  color:var(--pu);margin:10px 0}
-.progress{font-size:10px;color:var(--muted);text-align:center;margin-bottom:6px}
-.hearts{font-size:16px;letter-spacing:2px}
-.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0}
-.shop-btn{background:var(--card);border:1.5px solid rgba(124,58,237,.2);
-  border-radius:10px;padding:8px;text-align:center;cursor:pointer;transition:all .15s}
-.shop-btn:hover{border-color:var(--pu)}
-.shop-btn .ico{font-size:24px}
-.shop-btn .price{font-family:var(--fp);font-size:7px;color:var(--pu);margin-top:3px}
-.needs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0}
-.need-bar{text-align:center}
-.need-lbl{font-size:8px;color:var(--muted);margin-bottom:2px}
-.need-track{height:40px;background:rgba(255,255,255,.06);border-radius:6px;
-  overflow:hidden;display:flex;align-items:flex-end}
-.need-fill{width:100%;transition:height .4s;border-radius:6px}
-.fill-hunger{background:linear-gradient(180deg,#f59e0b,#d97706)}
-.fill-fun{background:linear-gradient(180deg,#ec4899,#db2777)}
-.fill-hygiene{background:linear-gradient(180deg,#06b6d4,#0891b2)}
-.fill-health{background:linear-gradient(180deg,#22c55e,#16a34a)}
+  padding:10px 22px;border-radius:99px;font-family:var(--fn);
+  font-size:13px;font-weight:700;cursor:pointer;border:none;
+  background:linear-gradient(135deg,var(--pu),var(--pk));
+  color:#fff;box-shadow:0 4px 14px rgba(124,58,237,.35);
+  transition:all .18s;width:100%}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.screen{display:none}
+.screen.on{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}}
+.result-ico{font-size:64px;text-align:center;margin:10px 0}
+.result-title{font-family:var(--fp);font-size:10px;text-align:center;
+  color:var(--pu);margin-bottom:8px}
+.result-score{font-family:var(--fp);font-size:22px;text-align:center;
+  background:linear-gradient(135deg,var(--pu),var(--pk));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;margin-bottom:6px}
+.result-stats{display:flex;gap:10px;justify-content:center;margin:10px 0}
+.rs{text-align:center;background:rgba(255,255,255,.05);
+  border-radius:10px;padding:8px 14px}
+.rs-v{font-family:var(--fp);font-size:13px;color:var(--pu)}
+.rs-l{font-size:9px;opacity:.5;margin-top:3px}
+.shop-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}
+.shop-card{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:10px;text-align:center;cursor:pointer;transition:all .18s}
+.shop-card:hover{border-color:var(--pu);transform:translateY(-2px)}
+.shop-card-ico{font-size:28px;margin-bottom:4px}
+.shop-card-name{font-size:10px;font-weight:700;margin-bottom:2px}
+.shop-card-price{font-size:9px;opacity:.6}
+.coins-badge{display:inline-flex;align-items:center;gap:4px;
+  background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);
+  border-radius:99px;padding:3px 10px;font-family:var(--fp);font-size:9px;color:#f59e0b}
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="game-wrap">
+<div class="game">
 
-<!-- ЭКРАН: СТАРТ -->
-<div class="screen on" id="scr-start">
-  <div class="pet-area" id="pet-start">${pets[0]?.emoji||'🥚'}</div>
-  <div class="game-title">${esc(m.title)||'ТАМАГОЧИ'}</div>
-  <p style="text-align:center;color:var(--muted);font-size:11px;margin:8px 0 16px">
-    ${esc(m.subtitle)||''}</p>
-  <button class="btn btn-pu" onclick="startGame()">${esc(u.start)||'Начать игру!'}</button>
+<div class="screen on" id="s-start">
+  <div class="hdr">
+    <div class="hdr-title">${state.title||'Тамагочи'}</div>
+    <div class="hdr-sub">${state.subtitle||''}</div>
+  </div>
+  <div class="pet-box">
+    <span class="pet-emo" id="start-pet">${state.pets[0]?state.pets[0].emoji:'🥚'}</span>
+    <div class="pet-name">${state.pets[0]?state.pets[0].stage:'Яйцо'}</div>
+  </div>
+  <div class="bubble" id="start-bubble">${state.phrases[0]?state.phrases[0].text:'Привет!'}</div>
+  <div class="lvl-btns">
+    <button class="lvl-btn on" onclick="selectLevel(1,this)">🐣 Ур.1</button>
+    <button class="lvl-btn" onclick="selectLevel(2,this)">🐱 Ур.2</button>
+    <button class="lvl-btn" onclick="selectLevel(3,this)">🌟 Ур.3</button>
+  </div>
+  <button class="btn" onclick="startGame()">▶ Начать игру</button>
 </div>
 
-<!-- ЭКРАН: УРОВЕНЬ 1 -->
-<div class="screen" id="scr-l1">
-  <div class="game-title">🐣 ${esc(m.title)}</div>
-  <div class="hud">
-    <div><span id="l1-lives" class="hearts">❤️❤️❤️</span></div>
-    <div>${esc(u.score)||'Очки:'} <span id="l1-score">0</span></div>
-    <div id="l1-timer-txt">${esc(u.timer)||'Осталось:'} <span id="l1-time">${s.timer}</span>с</div>
+<div class="screen" id="s-game">
+  <div class="stats">
+    <div class="stat"><div class="stat-val" id="g-score">0</div><div class="stat-lbl">🏆 Очки</div></div>
+    <div class="stat"><div class="stat-val" id="g-lives-d">❤️❤️❤️</div><div class="stat-lbl">Жизни</div></div>
+    <div class="stat"><div class="stat-val" id="g-coins">0 🪙</div><div class="stat-lbl">Монеты</div></div>
+    <div class="stat"><div class="stat-val" id="g-qnum">1/10</div><div class="stat-lbl">Вопрос</div></div>
   </div>
-  <div class="timer-bar"><div class="timer-fill" id="l1-tbar" style="width:100%"></div></div>
-  <div class="progress" id="l1-prog">Вопрос 1 из 10</div>
-  <div class="question-box" id="l1-q">Загрузка...</div>
-  <div class="options" id="l1-opts"></div>
+  <div class="timer-bar"><div class="timer-fill" id="timer-fill" style="width:100%"></div></div>
+  <div class="pet-box"><span class="pet-emo" id="game-pet">${state.pets[0]?state.pets[0].emoji:'🥚'}</span></div>
+  <div class="bubble" id="game-bubble">Отвечай быстрее!</div>
+  <div class="card">
+    <div class="q-text" id="q-text">Вопрос загружается...</div>
+    <div id="q-body"></div>
+  </div>
 </div>
 
-<!-- ЭКРАН: УРОВЕНЬ 2 -->
-<div class="screen" id="scr-l2">
-  <div class="game-title">🐱 ${esc(m.title)}</div>
-  <div class="hud">
-    <div><span id="l2-lives" class="hearts">❤️❤️❤️</span></div>
-    <div>${esc(u.score)||'Очки:'} <span id="l2-score">0</span></div>
-    <div>${esc(u.timer)||'Осталось:'} <span id="l2-time">${s.timer}</span>с</div>
+<div class="screen" id="s-shop">
+  <div class="hdr">
+    <div class="hdr-title">🛍 Магазин</div>
+    <div class="hdr-sub">Порадуй питомца!</div>
   </div>
-  <div class="timer-bar"><div class="timer-fill" id="l2-tbar" style="width:100%"></div></div>
-  <div class="progress" id="l2-prog">Вопрос 1 из 10</div>
-  <div class="question-box" id="l2-q">Загрузка...</div>
-  <div class="options" id="l2-opts"></div>
+  <div style="text-align:center;margin-bottom:10px">
+    <span class="coins-badge">🪙 <span id="shop-coins">0</span> монет</span>
+  </div>
+  <div class="pet-box"><span class="pet-emo" id="shop-pet">${state.pets[0]?state.pets[0].emoji:'🥚'}</span></div>
+  <div class="bubble" id="shop-bubble">Купи мне что-нибудь! 🥺</div>
+  <div class="shop-grid" id="shop-items-render"></div>
+  <button class="btn" onclick="goResult()" style="margin-top:10px">➡ Продолжить</button>
 </div>
 
-<!-- ЭКРАН: УРОВЕНЬ 3 -->
-<div class="screen" id="scr-l3">
-  <div class="game-title">🌟 ${esc(m.title)}</div>
-  <div class="hud">
-    <div><span id="l3-lives" class="hearts">❤️❤️❤️</span></div>
-    <div>${esc(u.score)||'Очки:'} <span id="l3-score">0</span></div>
-    <div>${esc(u.timer)||'Осталось:'} <span id="l3-time">${s.timer}</span>с</div>
+<div class="screen" id="s-result">
+  <div class="result-ico" id="res-ico">🏆</div>
+  <div class="result-title" id="res-title">УРОВЕНЬ ПРОЙДЕН!</div>
+  <div class="result-score" id="res-score">100</div>
+  <div class="result-stats">
+    <div class="rs"><div class="rs-v" id="res-correct">0</div><div class="rs-l">✅ Верно</div></div>
+    <div class="rs"><div class="rs-v" id="res-wrong">0</div><div class="rs-l">❌ Ошибок</div></div>
+    <div class="rs"><div class="rs-v" id="res-coins">0</div><div class="rs-l">🪙 Монет</div></div>
   </div>
-  <div class="timer-bar"><div class="timer-fill" id="l3-tbar" style="width:100%"></div></div>
-  <div class="progress" id="l3-prog">Вопрос 1 из 5</div>
-  <div class="question-box" id="l3-q">Загрузка...</div>
-  <input class="input-box" id="l3-input" type="text" placeholder="Введите слово...">
-  <button class="btn btn-pu" onclick="checkL3()">${esc(u.next)||'Проверить'}</button>
+  <div class="bubble" id="res-bubble">Молодец!</div>
+  <button class="btn" onclick="restartGame()">🔄 Играть снова</button>
 </div>
 
-<!-- ЭКРАН: МАГАЗИН -->
-<div class="screen" id="scr-shop">
-  <div class="game-title">🛍 Магазин</div>
-  <div class="hud">
-    <div>💰 <span id="shop-coins">0</span> монет</div>
-    <div id="shop-pet-name">${pets[0]?.stage||'Питомец'}</div>
+</div>
+<script>
+const WORDS=${JSON.stringify(allWords)};
+const PAIRS=${JSON.stringify(allPairs)};
+const PHRS=${JSON.stringify(allPhrs)};
+const PETS=${JSON.stringify(state.pets)};
+const PHRASES=${JSON.stringify(state.phrases)};
+const SHOP=${JSON.stringify(state.shop)};
+const CFG={timer:${state.timer},lives:${state.lives},pass:${state.pass},hints:${state.hints}};
+let gScore=0,gLives=CFG.lives,gCoins=0,gQ=0,gWrong=0,gLevel=1;
+let gList=[],timerInt=null,timerLeft=CFG.timer;
+function selectLevel(n,el){gLevel=n;document.querySelectorAll('.lvl-btn').forEach(b=>b.classList.remove('on'));el.classList.add('on');}
+function shuffle(a){return a.sort(()=>Math.random()-.5)}
+function buildList(){
+  if(gLevel===1) return shuffle([...WORDS]).slice(0,Math.min(10,WORDS.length));
+  if(gLevel===2) return shuffle([...PAIRS]).slice(0,Math.min(10,PAIRS.length));
+  if(gLevel===3) return shuffle([...PHRS]).slice(0,Math.min(8,PHRS.length));
+  return [];
+}
+function getPetEmoji(){
+  if(gCoins>=100&&PETS[4]) return PETS[4].emoji;
+  if(gCoins>=60&&PETS[3])  return PETS[3].emoji;
+  if(gCoins>=30&&PETS[2])  return PETS[2].emoji;
+  if(gCoins>=10&&PETS[1])  return PETS[1].emoji;
+  return PETS[0]?PETS[0].emoji:'🥚';
+}
+function setPetAll(){
+  const e=getPetEmoji();
+  ['start-pet','game-pet','shop-pet'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=e;});
+}
+function getPhrase(cat){const p=PHRASES.find(x=>x.cat.includes(cat));return p?p.text:'...';}
+function startGame(){
+  gList=buildList();
+  if(gList.length===0){alert('Нет данных!');return;}
+  gScore=0;gLives=CFG.lives;gCoins=0;gQ=0;gWrong=0;
+  showScreen('s-game');nextQ();
+}
+function nextQ(){
+  if(gQ>=gList.length){goShop();return;}
+  clearInterval(timerInt);timerLeft=CFG.timer;updateTimerBar();
+  const item=gList[gQ];
+  document.getElementById('g-qnum').textContent=(gQ+1)+'/'+gList.length;
+  updateHUD();
+  if(gLevel===1)renderQ1(item);
+  else if(gLevel===2)renderQ2(item);
+  else renderQ3(item);
+  timerInt=setInterval(tickTimer,100);
+}
+function tickTimer(){
+  timerLeft-=0.1;updateTimerBar();
+  if(timerLeft<=0){
+    clearInterval(timerInt);gLives--;gWrong++;
+    setBubble('game-bubble','⏰ Время вышло!');updateHUD();
+    if(gLives<=0){setTimeout(()=>goResult(),1200);return;}
+    setTimeout(nextQ,1200);
+  }
+}
+function updateTimerBar(){const f=document.getElementById('timer-fill');if(f)f.style.width=Math.max(0,(timerLeft/CFG.timer)*100)+'%';}
+function updateHUD(){
+  document.getElementById('g-score').textContent=gScore;
+  document.getElementById('g-coins').textContent=gCoins+' 🪙';
+  document.getElementById('g-lives-d').textContent='❤️'.repeat(Math.max(0,gLives));
+  setPetAll();
+}
+function setBubble(id,txt){const el=document.getElementById(id);if(el)el.textContent=txt;}
+function renderQ1(item){
+  document.getElementById('q-text').textContent='Переведи: «'+item.word+'»';
+  const wrongs=shuffle(WORDS.filter(w=>w.word!==item.word)).slice(0,3).map(w=>w.trans);
+  const opts=shuffle([item.trans,...wrongs]);
+  document.getElementById('q-body').innerHTML='<div class="opts">'+opts.map(o=>
+    '<button class="opt" onclick="answerQ1(this,\''+o.replace(/'/g,"\\'")+"','"+item.trans.replace(/'/g,"\\'")+'\')">'+o+'</button>'
+  ).join('')+'</div>';
+}
+function answerQ1(btn,chosen,correct){
+  clearInterval(timerInt);
+  document.querySelectorAll('.opt').forEach(b=>b.style.pointerEvents='none');
+  if(chosen===correct){btn.classList.add('ok');gScore+=10;gCoins+=2;setBubble('game-bubble',getPhrase('Правильно'));}
+  else{
+    btn.classList.add('err');
+    document.querySelectorAll('.opt').forEach(b=>{if(b.textContent===correct)b.classList.add('ok');});
+    gLives--;gWrong++;setBubble('game-bubble',getPhrase('Неверно'));
+  }
+  updateHUD();gQ++;
+  if(gLives<=0){setTimeout(()=>goResult(),1200);return;}
+  setTimeout(nextQ,1200);
+}
+function renderQ2(item){
+  document.getElementById('q-text').textContent='Найди пару для: «'+item.a+'»';
+  const wrongs=shuffle(PAIRS.filter(p=>p.a!==item.a)).slice(0,3).map(p=>p.b);
+  const opts=shuffle([item.b,...wrongs]);
+  document.getElementById('q-body').innerHTML='<div class="opts">'+opts.map(o=>
+    '<button class="opt" onclick="answerQ1(this,\''+o.replace(/'/g,"\\'")+"','"+item.b.replace(/'/g,"\\'")+'\')">'+o+'</button>'
+  ).join('')+'</div>';
+}
+function renderQ3(item){
+  const hint=CFG.hints?'<div style="font-size:10px;opacity:.5;margin-bottom:8px">💡 Первая буква: '+item.answer[0]+'</div>':'';
+  document.getElementById('q-text').textContent=item.text;
+  document.getElementById('q-body').innerHTML=hint+
+    '<input class="fill-inp" id="fill-inp" type="text" placeholder="Введи слово...">'+
+    '<button class="btn" onclick="answerQ3()">✅ Проверить</button>';
+  document.getElementById('fill-inp').addEventListener('keydown',e=>{if(e.key==='Enter')answerQ3();});
+}
+function answerQ3(){
+  clearInterval(timerInt);
+  const inp=document.getElementById('fill-inp');
+  const val=(inp?inp.value:'').trim().toLowerCase();
+  const correct=gList[gQ].answer.trim().toLowerCase();
+  const qb=document.getElementById('q-body');
+  if(val===correct){
+    if(inp){inp.style.borderColor='#22c55e';inp.style.color='#4ade80';}
+    if(qb)qb.innerHTML+='<div style="color:#4ade80;font-weight:700;text-align:center;margin-top:6px">✅ Верно!</div>';
+    gScore+=15;gCoins+=3;setBubble('game-bubble',getPhrase('Правильно'));
+  }else{
+    if(inp){inp.style.borderColor='#ef4444';inp.style.color='#f87171';}
+    if(qb)qb.innerHTML+='<div style="color:#f87171;font-weight:700;text-align:center;margin-top:6px">❌ Ответ: '+gList[gQ].answer+'</div>';
+    gLives--;gWrong++;setBubble('game-bubble',getPhrase('Неверно'));
+  }
+  updateHUD();gQ++;
+  if(gLives<=0){setTimeout(()=>goResult(),1400);return;}
+  setTimeout(nextQ,1400);
+}
+function goShop(){
+  document.getElementById('shop-coins').textContent=gCoins;
+  setPetAll();
+  setBubble('shop-bubble',getPhrase('Победа')||'Купи мне что-нибудь! 🥺');
+  const sg=document.getElementById('shop-items-render');
+  if(sg)sg.innerHTML=SHOP.map((it,i)=>
+    '<div class="shop-card" onclick="buyItem('+i+')"><div class="shop-card-ico">'+it.ico+'</div><div class="shop-card-name">'+it.name+'</div><div class="shop-card-price">'+it.price+' 🪙</div></div>'
+  ).join('');
+  showScreen('s-shop');
+}
+function buyItem(i){
+  const it=SHOP[i];
+  if(gCoins<it.price){setBubble('shop-bubble','😢 Не хватает монет!');return;}
+  gCoins-=it.price;
+  document.getElementById('shop-coins').textContent=gCoins;
+  setBubble('shop-bubble','😻 Спасибо за '+it.ico+'!');
+  setPetAll();
+}
+function goResult(){
+  clearInterval(timerInt);
+  const pct=gList.length>0?Math.round(((gList.length-gWrong)/gList.length)*100):0;
+  const win=pct>=CFG.pass;
+  document.getElementById('res-ico').textContent=win?'🏆':'😿';
+  document.getElementById('res-title').textContent=win?'УРОВЕНЬ ПРОЙДЕН!':'ПОПРОБУЙ ЕЩЁ РАЗ';
+  document.getElementById('res-score').textContent=gScore+' очков';
+  document.getElementById('res-correct').textContent=gList.length-gWrong;
+  document.getElementById('res-wrong').textContent=gWrong;
+  document.getElementById('res-coins').textContent=gCoins;
+  setBubble('res-bubble',win?getPhrase('Победа'):getPhrase('Неверно'));
+  showScreen('s-result');
+}
+function restartGame(){showScreen('s-start');setPetAll();}
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  const el=document.getElementById(id);if(el)el.classList.add('on');
+}
+setPetAll();
+<\/script>
+</body>
+</html>`;
+
+  const blob=new Blob([html],{type:'text/html'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=(state.title||'tamagotchi')+'.html';
+  a.click();
+  toast('🚀 Игра экспортирована!','ok');
+}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${state.title||'Тамагочи'}</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=${encodeURIComponent(state.ui.font)}:wght@400;700;800&display=swap" rel="stylesheet">
+
+    --bg:${state.ui.bgcolor};
+  --text:${state.ui.textcolor};
+  --fn:'${state.ui.font}',sans-serif;
+  --fp:'Press Start 2P',monospace;
+}
+  lang: 'ru',
+  title: '',
+  subtitle: '',
+  desc: '',
+  subject: 'german',
+  audience: 'a1',
+  timer: 30,
+  lives: 3,
+  pass: 75,
+  shuffle: false,
+  music: true,
+  hints: true,
+  l1: [], // [{theme, words:[{word,trans}]}]
+  l2: [], // [{theme, pairs:[{a,b}]}]
+  l3: [], // [{text,answer}]
+  pets: PET_STAGES.map(p=>({...p})),
+  phrases: DEMO_PHRASES.map(p=>({...p})),
+  shop: DEFAULT_SHOP.map(s=>({...s})),
+  ui: {
+    color1:'#7c3aed', color2:'#ec4899',
+    bgcolor:'#0f0c1a', textcolor:'#e2e8f0',
+    font:'Nunito', fontsize:'15px',
+    bgstyle:'gradient', animspeed:'normal',
+    soundCorrect:true, soundWrong:true,
+    soundLevelup:true, soundCoins:true,
+  }
+  buildLangGrid();
+  initL1();
+  initL2();
+  initL3();
+  renderPets();
+  renderPhrases();
+  renderShop();
+  syncFromState();
+  updatePreview();
+  updateStats();
+}
+
+// ============================================================
+// ЯЗЫКИ
+// ============================================================
+function buildLangGrid(){
+  const g = document.getElementById('lang-grid');
+  g.innerHTML = LANGS.map(l=>`
+    <div class="lbtn ${l.code===state.lang?'on':''}"
+         onclick="setLang('${l.code}')">
+      <span class="lbtn-flag">${l.flag}</span>
+      <div class="lbtn-name">${l.name}</div>
+    </div>`).join('');
+  renderLangBanner();
+}
+
+function renderLangBanner(){
+  const l = LANGS.find(x=>x.code===state.lang);
+  document.getElementById('lang-banner').innerHTML = `
+    <div class="lang-banner">
+      <span class="lang-banner-flag">${l.flag}</span>
+      <div>
+        <div class="lang-banner-name">${l.name}</div>
+        <div class="lang-banner-hint">${l.hint}</div>
+      </div>
+    </div>`;
+  const lbl = l.name.toUpperCase().slice(0,2);
+  ['l1-lang-lbl','l2-lang-lbl','l3-lang-lbl'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent=lbl;
+  });
+  const pb=document.getElementById('phrases-lang-lbl');
+  if(pb) pb.textContent=lbl;
+  const sl=document.getElementById('side-lang');
+  if(sl) sl.textContent=lbl;
+  const stl=document.getElementById('stat-lang');
+  if(stl) stl.textContent=lbl;
+}
+
+function setLang(code){
+  state.lang = code;
+  buildLangGrid();
+  toast(`🌐 Язык изменён на ${LANGS.find(l=>l.code===code).name}`,'info');
+  sync();
+}
+
+// ============================================================
+// УРОВЕНЬ 1
+// ============================================================
+function initL1(){
+  if(state.l1.length===0){
+    state.l1 = THEMES_L1.map(t=>({
+      theme: t.name,
+      ico: t.ico,
+      words: Array.from({length:10},(_,i)=>({word:'',trans:''}))
+    }));
+  }
+  renderL1();
+}
+
+function renderL1(){
+  const c = document.getElementById('l1-themes');
+  c.innerHTML = state.l1.map((th,ti)=>`
+    <div class="tacc ${ti===0?'open':''}" id="l1-th-${ti}">
+      <div class="tacc-hdr" onclick="toggleAcc('l1-th-${ti}')">
+        <div class="tacc-left">
+          <span class="tacc-ico">${th.ico}</span>
+          <span class="tacc-name">${th.theme}</span>
+          <span class="tacc-info">${th.words.filter(w=>w.word).length}/10</span>
+        </div>
+        <span class="tacc-arr">▼</span>
+      </div>
+      <div class="tacc-body">
+        <div class="f mb8">
+          <label>Название темы</label>
+          <input type="text" value="${th.theme}"
+            oninput="state.l1[${ti}].theme=this.value;updateAccName('l1-th-${ti}',this.value);sync()">
+        </div>
+        ${th.words.map((w,wi)=>`
+          <div class="wrow">
+            <span class="wrow-n">${wi+1}</span>
+            <input type="text" placeholder="Слово (${state.lang})"
+              value="${w.word}"
+              oninput="state.l1[${ti}].words[${wi}].word=this.value;sync()">
+            <span style="color:var(--pk);font-size:12px">→</span>
+            <input type="text" placeholder="Перевод (ru)"
+              value="${w.trans}"
+              oninput="state.l1[${ti}].words[${wi}].trans=this.value;sync()">
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+// ============================================================
+// УРОВЕНЬ 2
+// ============================================================
+function initL2(){
+  if(state.l2.length===0){
+    state.l2 = THEMES_L2.map(t=>({
+      theme: t.name,
+      ico: t.ico,
+      pairs: Array.from({length:10},()=>({a:'',b:''}))
+    }));
+  }
+  renderL2();
+}
+
+function renderL2(){
+  const c = document.getElementById('l2-themes');
+  c.innerHTML = state.l2.map((th,ti)=>`
+    <div class="tacc ${ti===0?'open':''}" id="l2-th-${ti}">
+      <div class="tacc-hdr" onclick="toggleAcc('l2-th-${ti}')">
+        <div class="tacc-left">
+          <span class="tacc-ico">${th.ico}</span>
+          <span class="tacc-name">${th.theme}</span>
+          <span class="tacc-info">${th.pairs.filter(p=>p.a).length}/10</span>
+        </div>
+        <span class="tacc-arr">▼</span>
+      </div>
+      <div class="tacc-body">
+        <div class="f mb8">
+          <label>Название темы</label>
+          <input type="text" value="${th.theme}"
+            oninput="state.l2[${ti}].theme=this.value;updateAccName('l2-th-${ti}',this.value);sync()">
+        </div>
+        ${th.pairs.map((p,pi)=>`
+          <div class="prow">
+            <span class="wrow-n">${pi+1}</span>
+            <input type="text" placeholder="Часть А"
+              value="${p.a}"
+              oninput="state.l2[${ti}].pairs[${pi}].a=this.value;sync()">
+            <span class="prow-sep">↔</span>
+            <input type="text" placeholder="Часть Б"
+              value="${p.b}"
+              oninput="state.l2[${ti}].pairs[${pi}].b=this.value;sync()">
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+// ============================================================
+// УРОВЕНЬ 3
+// ============================================================
+function initL3(){
+  if(state.l3.length===0){
+    state.l3 = Array.from({length:5},()=>({text:'',answer:''}));
+  }
+  renderL3();
+}
+
+function renderL3(){
+  const c = document.getElementById('l3-provs');
+  c.innerHTML = state.l3.map((ph,i)=>`
+    <div class="phrow">
+      <div class="phrow-top">
+        <span class="phrow-n">#${i+1}</span>
+        <span class="phrow-cat">Фраза с пропуском</span>
+        <button class="btn btn-re btn-xs" style="margin-left:auto"
+          onclick="removeProv(${i})">✕</button>
+      </div>
+      <input class="ph-text" type="text"
+        placeholder="Например: Ich _____ Deutsch (я учу немецкий)"
+        value="${ph.text}"
+        oninput="state.l3[${i}].text=this.value;sync()">
+      <div class="phrow-ans">
+        <span class="phrow-ans-lbl">✅ Ответ:</span>
+        <input class="ph-ans" type="text"
+          placeholder="lerne"
+          value="${ph.answer}"
+          oninput="state.l3[${i}].answer=this.value;sync()">
+      </div>
+    </div>`).join('');
+  const cnt=document.getElementById('l3-cnt');
+  if(cnt) cnt.textContent=state.l3.length+' фраз';
+  const sl=document.getElementById('side-l3');
+  if(sl) sl.textContent=state.l3.filter(p=>p.text).length;
+}
+
+function addProv(){
+  state.l3.push({text:'',answer:''});
+  renderL3();
+  sync();
+}
+
+function removeProv(i){
+  state.l3.splice(i,1);
+  renderL3();
+  sync();
+}
+
+// ============================================================
+// ПИТОМЦЫ
+// ============================================================
+function renderPets(){
+  const g = document.getElementById('pets-grid');
+  g.innerHTML = state.pets.map((p,i)=>`
+    <div class="pet-card">
+      <div class="pet-emo">${p.emoji}</div>
+      <div class="pet-stage">${p.stage}</div>
+      <div class="f">
+        <input type="text" value="${p.emoji}"
+          placeholder="Эмодзи"
+          oninput="state.pets[${i}].emoji=this.value;renderPets();sync()"
+          style="text-align:center;font-size:20px">
+      </div>
+      <div style="font-size:9px;color:var(--muted)">${p.desc}</div>
+    </div>`).join('');
+}
+
+function renderPhrases(){
+  const c = document.getElementById('pet-phrases');
+  c.innerHTML = state.phrases.map((ph,i)=>`
+    <div class="phrow">
+      <div class="phrow-top">
+        <span class="phrow-cat">${ph.cat}</span>
+      </div>
+      <input class="ph-text" type="text"
+        value="${ph.text}"
+        oninput="state.phrases[${i}].text=this.value;sync()">
+    </div>`).join('');
+}
+
+// ============================================================
+// МАГАЗИН
+// ============================================================
+function renderShop(){
+  const g = document.getElementById('shop-grid');
+  g.innerHTML = state.shop.map((it,i)=>`
+    <div class="shop-item">
+      <div class="shop-ico">${it.ico}</div>
+      <div class="f">
+        <label>Эмодзи</label>
+        <input type="text" value="${it.ico}"
+          oninput="state.shop[${i}].ico=this.value;renderShop();sync()">
+      </div>
+      <div class="f">
+        <label>Название</label>
+        <input type="text" value="${it.name}"
+          oninput="state.shop[${i}].name=this.value;sync()">
+      </div>
+      <div class="f">
+        <label>Цена 🪙</label>
+        <input type="number" value="${it.price}" min="1" max="99"
+          oninput="state.shop[${i}].price=+this.value;sync()">
+      </div>
+      <button class="btn btn-re btn-xs w100 mt8"
+        onclick="removeShopItem(${i})">🗑 Удалить</button>
+    </div>`).join('');
+  const ss=document.getElementById('stat-shop');
+  if(ss) ss.textContent=state.shop.length;
+}
+
+function addShopItem(){
+  state.shop.push({ico:'⭐',name:'Новый предмет',price:5,effect:'fun'});
+  renderShop();
+  sync();
+}
+
+function removeShopItem(i){
+  state.shop.splice(i,1);
+  renderShop();
+  sync();
+  toast('🗑 Предмет удалён','info');
+}
+
+// ============================================================
+// СИНХРОНИЗАЦИЯ
+// ============================================================
+function sync(){
+  state.title    = v('g-title');
+  state.subtitle = v('g-subtitle');
+  state.desc     = v('g-desc');
+  state.subject  = v('g-subject');
+  state.audience = v('g-audience');
+  state.timer    = +v('g-timer');
+  state.lives    = +v('g-lives');
+  state.pass     = +v('g-pass');
+  state.shuffle  = document.getElementById('g-shuffle').checked;
+  state.music    = document.getElementById('g-music').checked;
+  state.hints    = document.getElementById('g-hints').checked;
+  state.ui.color1      = v('ui-color1');
+  state.ui.color2      = v('ui-color2');
+  state.ui.bgcolor     = v('ui-bgcolor');
+  state.ui.textcolor   = v('ui-textcolor');
+  state.ui.font        = v('ui-font');
+  state.ui.fontsize    = v('ui-fontsize');
+  state.ui.bgstyle     = v('ui-bgstyle');
+  state.ui.animspeed   = v('ui-animspeed');
+  state.ui.soundCorrect  = document.getElementById('ui-sound-correct').checked;
+  state.ui.soundWrong    = document.getElementById('ui-sound-wrong').checked;
+  state.ui.soundLevelup  = document.getElementById('ui-sound-levelup').checked;
+  state.ui.soundCoins    = document.getElementById('ui-sound-coins').checked;
+  updatePreview();
+  updateStats();
+  updateJSON();
+}
+
+function syncFromState(){
+  set('g-title',    state.title);
+  set('g-subtitle', state.subtitle);
+  set('g-desc',     state.desc);
+  set('g-subject',  state.subject);
+  set('g-audience', state.audience);
+  set('g-timer',    state.timer);
+  set('g-lives',    state.lives);
+  set('g-pass',     state.pass);
+  document.getElementById('g-shuffle').checked = state.shuffle;
+  document.getElementById('g-music').checked   = state.music;
+  document.getElementById('g-hints').checked   = state.hints;
+  set('ui-color1',    state.ui.color1);
+  set('ui-color2',    state.ui.color2);
+  set('ui-bgcolor',   state.ui.bgcolor);
+  set('ui-textcolor', state.ui.textcolor);
+  set('ui-font',      state.ui.font);
+  set('ui-fontsize',  state.ui.fontsize);
+  set('ui-bgstyle',   state.ui.bgstyle);
+  set('ui-animspeed', state.ui.animspeed);
+  document.getElementById('ui-sound-correct').checked  = state.ui.soundCorrect;
+  document.getElementById('ui-sound-wrong').checked    = state.ui.soundWrong;
+  document.getElementById('ui-sound-levelup').checked  = state.ui.soundLevelup;
+  document.getElementById('ui-sound-coins').checked    = state.ui.soundCoins;
+}
+
+function v(id){ const el=document.getElementById(id); return el?el.value:''; }
+function set(id,val){ const el=document.getElementById(id); if(el) el.value=val; }
+
+// ============================================================
+// ПРЕВЬЮ И СТАТИСТИКА
+// ============================================================
+function updatePreview(){
+  const pt=document.getElementById('prev-title');
+  if(pt) pt.textContent=state.title||'Тамагочи';
+  const pp=document.getElementById('prev-pet');
+  if(pp) pp.textContent=state.pets[0]?state.pets[0].emoji:'🥚';
+  const w1 = state.l1[0]&&state.l1[0].words.find(w=>w.word);
+  const pq=document.getElementById('prev-q');
+  if(pq) pq.textContent=w1?`Как переводится: «${w1.word}»?`:'Как переводится слово?';
+}
+
+function updateStats(){
+  const l1c = state.l1.reduce((s,t)=>s+t.words.filter(w=>w.word).length,0);
+  const l2c = state.l2.reduce((s,t)=>s+t.pairs.filter(p=>p.a).length,0);
+  const l3c = state.l3.filter(p=>p.text).length;
+  const sl1=document.getElementById('side-l1'); if(sl1) sl1.textContent=l1c;
+  const sl2=document.getElementById('side-l2'); if(sl2) sl2.textContent=l2c;
+  const sl3=document.getElementById('side-l3'); if(sl3) sl3.textContent=l3c;
+  const stl1=document.getElementById('stat-l1'); if(stl1) stl1.textContent=l1c;
+  const stl2=document.getElementById('stat-l2'); if(stl2) stl2.textContent=l2c;
+  const stl3=document.getElementById('stat-l3'); if(stl3) stl3.textContent=l3c;
+  const l1cnt=document.getElementById('l1-cnt'); if(l1cnt) l1cnt.textContent=l1c+' слов';
+  const l2cnt=document.getElementById('l2-cnt'); if(l2cnt) l2cnt.textContent=l2c+' пар';
+  const l3cnt=document.getElementById('l3-cnt'); if(l3cnt) l3cnt.textContent=l3c+' фраз';
+}
+
+function updateJSON(){
+  const box=document.getElementById('json-preview');
+  if(box) box.textContent=JSON.stringify(state,null,2).slice(0,1200)+'...';
+}
+
+// ============================================================
+// ТАБЫ И АККОРДЕОНЫ
+// ============================================================
+function goTab(name,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  el.classList.add('on');
+  const sec=document.getElementById('sec-'+name);
+  if(sec) sec.classList.add('on');
+  if(name==='export') updateJSON();
+}
+
+function toggleAcc(id){
+  document.getElementById(id).classList.toggle('open');
+}
+
+function updateAccName(id,val){
+  const el=document.querySelector('#'+id+' .tacc-name');
+  if(el) el.textContent=val;
+}
+
+// ============================================================
+// ДЕМО ДАННЫЕ
+// ============================================================
+function fillDemo(){
+  state.title    = 'Тамагочи — Немецкий А1';
+  state.subtitle = 'Уровень А1';
+  state.desc     = 'Учим немецкий язык с питомцем!';
+  state.l1[0].words=[
+    {word:'Hund',trans:'Собака'},{word:'Katze',trans:'Кошка'},
+    {word:'Haus',trans:'Дом'},{word:'Auto',trans:'Машина'},
+    {word:'Buch',trans:'Книга'},{word:'Tisch',trans:'Стол'},
+    {word:'Stuhl',trans:'Стул'},{word:'Kind',trans:'Ребёнок'},
+    {word:'Mann',trans:'Мужчина'},{word:'Frau',trans:'Женщина'},
+  ];
+  state.l2[0].pairs=[
+    {a:'Guten Morgen',b:'Доброе утро'},{a:'Guten Tag',b:'Добрый день'},
+    {a:'Gute Nacht',b:'Спокойной ночи'},{a:'Danke',b:'Спасибо'},
+    {a:'Bitte',b:'Пожалуйста'},{a:'Entschuldigung',b:'Извините'},
+    {a:'Ja',b:'Да'},{a:'Nein',b:'Нет'},
+    {a:'Wie geht es?',b:'Как дела?'},{a:'Auf Wiedersehen',b:'До свидания'},
+  ];
+  state.l3=[
+    {text:'Ich _____ Deutsch.',answer:'lerne'},
+    {text:'Das _____ ein Hund.',answer:'ist'},
+    {text:'Wir _____ in Berlin.',answer:'wohnen'},
+    {text:'Er _____ ein Buch.',answer:'liest'},
+    {text:'Sie _____ Kaffee.',answer:'trinkt'},
+  ];
+  syncFromState();
+  renderL1(); renderL2(); renderL3();
+  updatePreview(); updateStats();
+  toast('🎲 Демо данные загружены!','ok');
+}
+
+// ============================================================
+// СОХРАНЕНИЕ / ЗАГРУЗКА
+// ============================================================
+function saveProject(){
+  const json=JSON.stringify(state,null,2);
+  const blob=new Blob([json],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='tamagotchi-project.json';
+  a.click();
+  toast('💾 Проект сохранён!','ok');
+}
+
+function loadProject(){
+  document.getElementById('file-input').click();
+}
+
+function handleFile(e){
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    try{
+      const data=JSON.parse(ev.target.result);
+      Object.assign(state,data);
+      syncFromState();
+      buildLangGrid();
+      renderL1(); renderL2(); renderL3();
+      renderPets(); renderPhrases(); renderShop();
+      updatePreview(); updateStats();
+      toast('📂 Проект загружен!','ok');
+    }catch(err){
+      toast('❌ Ошибка загрузки файла','err');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value='';
+}
+
+// ============================================================
+// ОЧИСТКА
+// ============================================================
+function clearAll(){
+  if(!confirm('Очистить все данные?')) return;
+  state.title=''; state.subtitle=''; state.desc='';
+  state.l1=THEMES_L1.map(t=>({
+    theme:t.name,ico:t.ico,
+    words:Array.from({length:10},()=>({word:'',trans:''}))
+  }));
+  state.l2=THEMES_L2.map(t=>({
+    theme:t.name,ico:t.ico,
+    pairs:Array.from({length:10},()=>({a:'',b:''}))
+  }));
+  state.l3=Array.from({length:5},()=>({text:'',answer:''}));
+  syncFromState();
+  renderL1(); renderL2(); renderL3();
+  updatePreview(); updateStats();
+  toast('🗑 Данные очищены','info');
+}
+
+// ============================================================
+// ПРЕВЬЮ МОДАЛЬНОЕ
+// ============================================================
+function openPreview(){
+  const b=document.getElementById('modal-preview-body');
+  const w1=state.l1[0]&&state.l1[0].words.find(w=>w.word);
+  b.innerHTML=`
+    <div style="text-align:center;padding:10px">
+      <div style="font-size:48px;margin-bottom:8px">${state.pets[2]?state.pets[2].emoji:'🐱'}</div>
+      <div style="font-family:var(--fp);font-size:10px;color:#a78bfa;margin-bottom:4px">
+        ${state.title||'Тамагочи'}</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:16px">
+        ${state.subtitle||'Уровень А1'}</div>
+    </div>
+    <div class="prev-q" style="margin-bottom:8px">
+      ${w1?`Как переводится: «${w1.word}»?`:'Добавьте слова в Уровень 1'}
+    </div>
+    ${w1?`<div class="prev-opts">
+      <div class="prev-opt ok">✅ ${w1.trans||'Перевод'}</div>
+      <div class="prev-opt">Вариант 2</div>
+      <div class="prev-opt">Вариант 3</div>
+    </div>`:''}
+    <div class="divider"></div>
+    <div class="g3" style="margin-top:8px">
+      <div class="srow"><span class="srow-l">⏱ Таймер</span>
+        <span class="srow-v">${state.timer}с</span></div>
+      <div class="srow"><span class="srow-l">❤️ Жизни</span>
+        <span class="srow-v">${state.lives}</span></div>
+      <div class="srow"><span class="srow-l">🏆 Порог</span>
+        <span class="srow-v">${state.pass}%</span></div>
+    </div>`;
+  document.getElementById('modal-preview').classList.add('open');
+}
+
+function closeModal(id){
+  document.getElementById(id).classList.remove('open');
+}
+
+// ============================================================
+// ЭКСПОРТ HTML
+// ============================================================
+function exportGame(){
+  sync();
+  const lang=LANGS.find(l=>l.code===state.lang);
+  const allWords=state.l1.flatMap(t=>t.words.filter(w=>w.word&&w.trans));
+  const allPairs=state.l2.flatMap(t=>t.pairs.filter(p=>p.a&&p.b));
+  const allPhrs=state.l3.filter(p=>p.text&&p.answer);
+  if(allWords.length<4){
+    toast('❌ Добавьте минимум 4 слова в Уровень 1','err'); return;
+  }
+  body{font-family:var(--fn);background:var(--bg);color:var(--text);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  font-size:${state.ui.fontsize}}
+.game{max-width:480px;width:100%;padding:16px}
+.hdr{text-align:center;margin-bottom:20px}
+.hdr-title{font-family:var(--fp);font-size:11px;
+  background:linear-gradient(135deg,var(--pu),var(--pk));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;margin-bottom:4px}
+.hdr-sub{font-size:11px;opacity:.6}
+.pet-box{text-align:center;margin:16px 0}
+.pet-emo{font-size:72px;animation:fl 3s ease-in-out infinite;display:block}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.pet-name{font-family:var(--fp);font-size:8px;color:var(--pu);margin-top:6px}
+.stats{display:flex;justify-content:center;gap:16px;margin-bottom:16px}
+.stat{text-align:center}
+.stat-val{font-family:var(--fp);font-size:12px;color:var(--pu)}
+.stat-lbl{font-size:9px;opacity:.5;margin-top:2px}
+.card{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);
+  border-radius:14px;padding:16px;margin-bottom:12px}
+.q-text{font-size:15px;font-weight:700;margin-bottom:14px;
+  text-align:center;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{padding:10px 14px;border-radius:10px;
+  background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.12);
+  cursor:pointer;font-size:13px;font-weight:700;transition:all .18s;text-align:center}
+.opt:hover{background:rgba(255,255,255,.1);transform:translateY(-1px)}
+.opt.ok{background:rgba(34,197,94,.15);border-color:#22c55e;color:#4ade80}
+.opt.err{background:rgba(239,68,68,.15);border-color:#ef4444;color:#f87171}
+.timer-bar{height:5px;background:rgba(255,255,255,.1);border-radius:3px;margin-bottom:12px}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--pu),var(--pk));
+  border-radius:3px;transition:width .1s linear}
+.bubble{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  border-radius:12px;padding:8px 12px;font-size:11px;
+  text-align:center;margin-bottom:12px;font-style:italic;min-height:32px}
+.lvl-btns{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
+.lvl-btn{padding:6px 14px;border-radius:99px;font-size:11px;font-weight:700;
+  cursor:pointer;border:1.5px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.05);color:var(--text);transition:all .18s}
+.lvl-btn.on{background:linear-gradient(135deg,var(--pu),var(--pk));
+  border-color:transparent;color:#fff}
+.lvl-btn:hover{transform:translateY(-1px)}
+.fill-inp{width:100%;background:rgba(255,255,255,.05);
+  border:1.5px solid rgba(255,255,255,.15);border-radius:10px;
+  color:var(--text);font-family:var(--fn);font-size:15px;
+  padding:10px 14px;outline:none;text-align:center;margin-bottom:10px}
+.fill-inp:focus{border-color:var(--pu);box-shadow:0 0 0 3px rgba(124,58,237,.2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px 22px;border-radius:99px;font-family:var(--fn);
+  font-size:13px;font-weight:700;cursor:pointer;border:none;
+  background:linear-gradient(135deg,var(--pu),var(--pk));
+  color:#fff;box-shadow:0 4px 14px rgba(124,58,237,.35);
+  transition:all .18s;width:100%}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.screen{display:none}
+.screen.on{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}}
+.result-ico{font-size:64px;text-align:center;margin:10px 0}
+.result-title{font-family:var(--fp);font-size:10px;text-align:center;
+  color:var(--pu);margin-bottom:8px}
+.result-score{font-family:var(--fp);font-size:22px;text-align:center;
+  background:linear-gradient(135deg,var(--pu),var(--pk));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;margin-bottom:6px}
+.result-stats{display:flex;gap:10px;justify-content:center;margin:10px 0}
+.rs{text-align:center;background:rgba(255,255,255,.05);
+  border-radius:10px;padding:8px 14px}
+.rs-v{font-family:var(--fp);font-size:13px;color:var(--pu)}
+.rs-l{font-size:9px;opacity:.5;margin-top:3px}
+.shop-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}
+.shop-card{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:10px;text-align:center;cursor:pointer;transition:all .18s}
+.shop-card:hover{border-color:var(--pu);transform:translateY(-2px)}
+.shop-card-ico{font-size:28px;margin-bottom:4px}
+.shop-card-name{font-size:10px;font-weight:700;margin-bottom:2px}
+.shop-card-price{font-size:9px;opacity:.6}
+.coins-badge{display:inline-flex;align-items:center;gap:4px;
+  background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);
+  border-radius:99px;padding:3px 10px;font-family:var(--fp);font-size:9px;color:#f59e0b}
+</style>
+</head>
+<body>
+<div class="game">
+
+<!-- СТАРТ -->
+<div class="screen on" id="s-start">
+  <div class="hdr">
+    <div class="hdr-title">${state.title||'Тамагочи'}</div>
+    <div class="hdr-sub">${state.subtitle||''}</div>
   </div>
-  <div class="pet-area" id="shop-pet">${pets[0]?.emoji||'🥚'}</div>
-  <div class="needs">
-    <div class="need-bar">
-      <div class="need-lbl">🍎</div>
-      <div class="need-track"><div class="need-fill fill-hunger" id="bar-hunger" style="height:80%"></div></div>
+  <div class="pet-box">
+    <span class="pet-emo" id="start-pet">${state.pets[0]?state.pets[0].emoji:'🥚'}</span>
+    <div class="pet-name">${state.pets[0]?state.pets[0].stage:'Яйцо'}</div>
+  </div>
+  <div class="bubble" id="start-bubble">${state.phrases[0]?state.phrases[0].text:'Привет! Давай учиться!'}</div>
+  <div class="lvl-btns">
+    <button class="lvl-btn on" onclick="selectLevel(1,this)">🐣 Ур.1</button>
+    <button class="lvl-btn" onclick="selectLevel(2,this)">🐱 Ур.2</button>
+    <button class="lvl-btn" onclick="selectLevel(3,this)">🌟 Ур.3</button>
+  </div>
+  <button class="btn" onclick="startGame()">▶ Начать игру</button>
+</div>
+
+<!-- ИГРА -->
+<div class="screen" id="s-game">
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-val" id="g-score">0</div>
+      <div class="stat-lbl">🏆 Очки</div>
     </div>
-    <div class="need-bar">
-      <div class="need-lbl">🎮</div>
-      <div class="need-track"><div class="need-fill fill-fun" id="bar-fun" style="height:60%"></div></div>
+    <div class="stat">
+      <div class="stat-val" id="g-lives-d">❤️❤️❤️</div>
+      <div class="stat-lbl">Жизни</div>
     </div>
-    <div class="need-bar">
-      <div class="need-lbl">🛁</div>
-      <div class="need-track"><div class="need-fill fill-hygiene" id="bar-hygiene" style="height:70%"></div></div>
+    <div class="stat">
+      <div class="stat-val" id="g-coins">0 🪙</div>
+      <div class="stat-lbl">Монеты</div>
     </div>
-    <div class="need-bar">
-      <div class="need-lbl">💊</div>
-      <div class="need-track"><div class="need-fill fill-health" id="bar-health" style="height:90%"></div></div>
+    <div class="stat">
+      <div class="stat-val" id="g-qnum">1/10</div>
+      <div class="stat-lbl">Вопрос</div>
     </div>
   </div>
-  <div class="shop-grid" id="shop-items"></div>
-  <button class="btn btn-pu" onclick="continueFromShop()" style="margin-top:8px">
-    ${esc(u.next)||'Продолжить →'}
+  <div class="timer-bar"><div class="timer-fill" id="timer-fill" style="width:100%"></div></div>
+  <div class="pet-box">
+    <span class="pet-emo" id="game-pet">${state.pets[0]?state.pets[0].emoji:'🥚'}</span>
+  </div>
+  <div class="bubble" id="game-bubble">Отвечай быстрее!</div>
+  <div class="card">
+    <div class="q-text" id="q-text">Вопрос загружается...</div>
+    <div id="q-body"></div>
+  </div>
+</div>
+
+<!-- МАГАЗИН -->
+<div class="screen" id="s-shop">
+  <div class="hdr">
+    <div class="hdr-title">🛍 Магазин</div>
+    <div class="hdr-sub">Порадуй питомца!</div>
+  </div>
+  <div style="text-align:center;margin-bottom:10px">
+    <span class="coins-badge">🪙 <span id="shop-coins">0</span> монет</span>
+  </div>
+  <div class="pet-box">
+    <span class="pet-emo" id="shop-pet">${state.pets[0]?state.pets[0].emoji:'🥚'}</span>
+  </div>
+  <div class="bubble" id="shop-bubble">Купи мне что-нибудь! 🥺</div>
+  <div class="shop-grid" id="shop-items-render"></div>
+  <button class="btn" onclick="goResult()" style="margin-top:10px">
+    ➡ Продолжить
   </button>
 </div>
 
-<!-- ЭКРАН: РЕЗУЛЬТАТ -->
-<div class="screen" id="scr-result">
-  <div class="result-emoji" id="res-emoji">🎉</div>
-  <div class="result-title" id="res-title">МОЛОДЕЦ!</div>
-  <div class="score-big" id="res-score">0</div>
-  <div style="text-align:center;color:var(--muted);font-size:11px;margin-bottom:16px"
-    id="res-msg"></div>
-  <div class="pet-area" id="res-pet">${pets[0]?.emoji||'🥚'}</div>
-  <button class="btn btn-pu" onclick="restartGame()" style="margin-top:12px">🔄 Играть снова</button>
+<!-- РЕЗУЛЬТАТ -->
+<div class="screen" id="s-result">
+  <div class="result-ico" id="res-ico">🏆</div>
+  <div class="result-title" id="res-title">УРОВЕНЬ ПРОЙДЕН!</div>
+  <div class="result-score" id="res-score">100</div>
+  <div class="result-stats">
+    <div class="rs">
+      <div class="rs-v" id="res-correct">0</div>
+      <div class="rs-l">✅ Верно</div>
+    </div>
+    <div class="rs">
+      <div class="rs-v" id="res-wrong">0</div>
+      <div class="rs-l">❌ Ошибок</div>
+    </div>
+    <div class="rs">
+      <div class="rs-v" id="res-coins">0</div>
+      <div class="rs-l">🪙 Монет</div>
+    </div>
+  </div>
+  <div class="bubble" id="res-bubble">Молодец!</div>
+  <button class="btn" onclick="restartGame()">🔄 Играть снова</button>
 </div>
 
-</div><!-- /game-wrap -->
-
+</div><!-- .game -->
 <script>
-// ══════════════════════════
-// ДАННЫЕ ИГРЫ
-// ══════════════════════════
-const GD = ${JSON.stringify({
-    l1: d.l1,
-    l2: d.l2,
-    l3: d.l3,
-    pets: pets,
-    shop: shop,
-    settings: s,
-    ui: u
-  })};
+const WORDS=${JSON.stringify(allWords)};
+const PAIRS=${JSON.stringify(allPairs)};
+const PHRS=${JSON.stringify(allPhrs)};
+const PETS=${JSON.stringify(state.pets)};
+const PHRASES=${JSON.stringify(state.phrases)};
+const SHOP=${JSON.stringify(state.shop)};
+const CFG={timer:${state.timer},lives:${state.lives},pass:${state.pass},hints:${state.hints}};
 
-// ══════════════════════════
-// СОСТОЯНИЕ
-// ══════════════════════════
-let state = {
-  screen: 'start',
-  level: 1,
-  score: 0,
-  lives: GD.settings.lives,
-  coins: 0,
-  petStage: 0,
-  timer: null,
-  timeLeft: GD.settings.timer,
-  qIdx: 0,
-  questions: [],
-  needs: {hunger:80, fun:60, hygiene:70, health:90},
-  answered: false
-};
+let gScore=0,gLives=CFG.lives,gCoins=0,gQ=0,gWrong=0,gLevel=1;
+let gList=[],timerInt=null,timerLeft=CFG.timer;
 
-// ══════════════════════════
-// УТИЛИТЫ
-// ══════════════════════════
-function shuffle(arr){
-  const a=[...arr];
-  for(let i=a.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [a[i],a[j]]=[a[j],a[i]];
+function selectLevel(n,el){
+  gLevel=n;
+  document.querySelectorAll('.lvl-btn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function shuffle(a){return a.sort(()=>Math.random()-.5)}
+
+function buildList(){
+  if(gLevel===1) return shuffle([...WORDS]).slice(0,Math.min(10,WORDS.length));
+  if(gLevel===2) return shuffle([...PAIRS]).slice(0,Math.min(10,PAIRS.length));
+  if(gLevel===3) return shuffle([...PHRS]).slice(0,Math.min(8,PHRS.length));
+  return [];
+}
+
+function getPetEmoji(){
+  if(gCoins>=100&&PETS[4]) return PETS[4].emoji;
+  if(gCoins>=60&&PETS[3])  return PETS[3].emoji;
+  if(gCoins>=30&&PETS[2])  return PETS[2].emoji;
+  if(gCoins>=10&&PETS[1])  return PETS[1].emoji;
+  return PETS[0]?PETS[0].emoji:'🥚';
+}
+
+function setPetAll(){
+  const e=getPetEmoji();
+  ['start-pet','game-pet','shop-pet'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.textContent=e;
+  });
+}
+
+function getPhrase(cat){
+  const p=PHRASES.find(x=>x.cat.includes(cat));
+  return p?p.text:'...';
+}
+
+function startGame(){
+  gList=buildList();
+  if(gList.length===0){
+    alert('Нет данных для этого уровня!'); return;
   }
-  return a;
+  gScore=0;gLives=CFG.lives;gCoins=0;gQ=0;gWrong=0;
+  showScreen('s-game');
+  nextQ();
+}
+
+function nextQ(){
+  if(gQ>=gList.length){goShop();return;}
+  clearInterval(timerInt);
+  timerLeft=CFG.timer;
+  updateTimerBar();
+  const item=gList[gQ];
+  document.getElementById('g-qnum').textContent=(gQ+1)+'/'+gList.length;
+  updateHUD();
+  if(gLevel===1) renderQ1(item);
+  else if(gLevel===2) renderQ2(item);
+  else renderQ3(item);
+  timerInt=setInterval(tickTimer,100);
+}
+
+function tickTimer(){
+  timerLeft-=0.1;
+  updateTimerBar();
+  if(timerLeft<=0){
+    clearInterval(timerInt);
+    gLives--;gWrong++;
+    setBubble('game-bubble','⏰ Время вышло! '+getPhrase('Неверно'));
+    updateHUD();
+    if(gLives<=0){setTimeout(()=>goResult(),1200);return;}
+    setTimeout(nextQ,1200);
+  }
+}
+
+function updateTimerBar(){
+  const f=document.getElementById('timer-fill');
+  if(f) f.style.width=Math.max(0,(timerLeft/CFG.timer)*100)+'%';
+}
+
+function updateHUD(){
+  document.getElementById('g-score').textContent=gScore;
+  document.getElementById('g-coins').textContent=gCoins+' 🪙';
+  document.getElementById('g-lives-d').textContent='❤️'.repeat(Math.max(0,gLives));
+  setPetAll();
+}
+
+function setBubble(id,txt){
+  const el=document.getElementById(id);if(el)el.textContent=txt;
+}
+
+function renderQ1(item){
+  document.getElementById('q-text').textContent='Переведи: «'+item.word+'»';
+  const wrongs=shuffle(WORDS.filter(w=>w.word!==item.word)).slice(0,3).map(w=>w.trans);
+  const opts=shuffle([item.trans,...wrongs]);
+  document.getElementById('q-body').innerHTML=
+    '<div class="opts">'+opts.map(o=>
+      '<button class="opt" onclick="answerQ1(this,\''+
+        o.replace(/'/g,"\\'")+"','"+item.trans.replace(/'/g,"\\'")+'\')">'+o+'</button>'
+    ).join('')+'</div>';
+}
+
+function answerQ1(btn,chosen,correct){
+  clearInterval(timerInt);
+  document.querySelectorAll('.opt').forEach(b=>b.style.pointerEvents='none');
+  if(chosen===correct){
+    btn.classList.add('ok');
+    gScore+=10;gCoins+=2;
+    setBubble('game-bubble',getPhrase('Правильно'));
+  }else{
+    btn.classList.add('err');
+    document.querySelectorAll('.opt').forEach(b=>{
+      if(b.textContent===correct) b.classList.add('ok');
+    });
+    gLives--;gWrong++;
+    setBubble('game-bubble',getPhrase('Неверно'));
+  }
+  updateHUD();
+  gQ++;
+  if(gLives<=0){setTimeout(()=>goResult(),1200);return;}
+  setTimeout(nextQ,1200);
+}
+
+function renderQ2(item){
+  document.getElementById('q-text').textContent='Найди пару для: «'+item.a+'»';
+  const wrongs=shuffle(PAIRS.filter(p=>p.a!==item.a)).slice(0,3).map(p=>p.b);
+  const opts=shuffle([item.b,...wrongs]);
+  document.getElementById('q-body').innerHTML=
+    '<div class="opts">'+opts.map(o=>
+      '<button class="opt" onclick="answerQ1(this,\''+
+        o.replace(/'/g,"\\'")+"','"+item.b.replace(/'/g,"\\'")+'\')">'+o+'</button>'
+    ).join('')+'</div>';
+}
+
+function renderQ3(item){
+  const hint=CFG.hints?'<div style="font-size:10px;opacity:.5;margin-bottom:8px">💡 Первая буква: '+item.answer[0]+'</div>':'';
+  document.getElementById('q-text').textContent=item.text.replace('_____','_____');
+  document.getElementById('q-body').innerHTML=
+    hint+
+    '<input class="fill-inp" id="fill-inp" type="text" placeholder="Введи слово..." autofocus>'+
+    '<button class="btn" onclick="answerQ3()">✅ Проверить</button>';
+  document.getElementById('fill-inp').addEventListener('keydown',e=>{
+    if(e.key==='Enter') answerQ3();
+  });
+}
+
+function answerQ3(){
+  clearInterval(timerInt);
+  const inp=document.getElementById('fill-inp');
+  const val=(inp?inp.value:'').trim().toLowerCase();
+  const correct=gList[gQ].answer.trim().toLowerCase();
+  const qb=document.getElementById('q-body');
+  if(val===correct){
+    if(inp){inp.style.borderColor='#22c55e';inp.style.color='#4ade80';}
+    if(qb) qb.innerHTML+='<div style="color:#4ade80;font-weight:700;text-align:center;margin-top:6px">✅ Верно!</div>';
+    gScore+=15;gCoins+=3;
+    setBubble('game-bubble',getPhrase('Правильно'));
+  }else{
+    if(inp){inp.style.borderColor='#ef4444';inp.style.color='#f87171';}
+    if(qb) qb.innerHTML+='<div style="color:#f87171;font-weight:700;text-align:center;margin-top:6px">❌ Ответ: '+gList[gQ].answer+'</div>';
+    gLives--;gWrong++;
+    setBubble('game-bubble',getPhrase('Неверно'));
+  }
+  updateHUD();
+  gQ++;
+  if(gLives<=0){setTimeout(()=>goResult(),1400);return;}
+  setTimeout(nextQ,1400);
+}
+
+function goShop(){
+  document.getElementById('shop-coins').textContent=gCoins;
+  setPetAll();
+  setBubble('shop-bubble',getPhrase('Победа')||'Купи мне что-нибудь! 🥺');
+  const sg=document.getElementById('shop-items-render');
+  if(sg) sg.innerHTML=SHOP.map((it,i)=>
+    '<div class="shop-card" onclick="buyItem('+i+')">'+
+      '<div class="shop-card-ico">'+it.ico+'</div>'+
+      '<div class="shop-card-name">'+it.name+'</div>'+
+      '<div class="shop-card-price">'+it.price+' 🪙</div>'+
+    '</div>'
+  ).join('');
+  showScreen('s-shop');
+}
+
+function buyItem(i){
+  const it=SHOP[i];
+  if(gCoins<it.price){
+    setBubble('shop-bubble','😢 Не хватает монет!'); return;
+  }
+  gCoins-=it.price;
+  document.getElementById('shop-coins').textContent=gCoins;
+  setBubble('shop-bubble','😻 Спасибо за '+it.ico+'!');
+  setPetAll();
+}
+
+function goResult(){
+  clearInterval(timerInt);
+  const pct=gList.length>0?Math.round(((gList.length-gWrong)/gList.length)*100):0;
+  const win=pct>=CFG.pass;
+  document.getElementById('res-ico').textContent=win?'🏆':'😿';
+  document.getElementById('res-title').textContent=win?'УРОВЕНЬ ПРОЙДЕН!':'ПОПРОБУЙ ЕЩЁ РАЗ';
+  document.getElementById('res-score').textContent=gScore+' очков';
+  document.getElementById('res-correct').textContent=gList.length-gWrong;
+  document.getElementById('res-wrong').textContent=gWrong;
+  document.getElementById('res-coins').textContent=gCoins;
+  setBubble('res-bubble',win?getPhrase('Победа'):getPhrase('Неверно'));
+  showScreen('s-result');
+}
+
+function restartGame(){
+  showScreen('s-start');
+  setPetAll();
 }
 
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
-  document.getElementById('scr-'+id).classList.add('on');
-  state.screen = id;
+  const el=document.getElementById(id);if(el)el.classList.add('on');
 }
 
-function updateHearts(prefix){
-  const h = '❤️'.repeat(state.lives) + '🖤'.repeat(Math.max(0, GD.settings.lives - state.lives));
-  const el = document.getElementById(prefix+'-lives');
-  if(el) el.textContent = h;
-}
-
-function startTimer(prefix, onEnd){
-  clearInterval(state.timer);
-  state.timeLeft = GD.settings.timer;
-  const fill = document.getElementById(prefix+'-tbar');
-  const timeTxt = document.getElementById(prefix+'-time');
-  state.timer = setInterval(()=>{
-    state.timeLeft--;
-    if(timeTxt) timeTxt.textContent = state.timeLeft;
-    if(fill) fill.style.width = (state.timeLeft/GD.settings.timer*100)+'%';
-    if(state.timeLeft<=0){
-      clearInterval(state.timer);
-      onEnd();
-    }
-  },1000);
-}
-
-function stopTimer(){ clearInterval(state.timer); }
-
-function getPet(){ return GD.pets[state.petStage]||GD.pets[GD.pets.length-1]; }
-
-function updatePetDisplay(ids){
-  const p = getPet();
-  ids.forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.textContent=p.emoji;
-  });
-}
-
-// ══════════════════════════
-// СТАРТ
-// ══════════════════════════
-function startGame(){
-  state.score=0;
-  state.lives=GD.settings.lives;
-  state.coins=0;
-  state.petStage=0;
-  state.level=1;
-  updatePetDisplay(['pet-start']);
-  startLevel1();
-}
-
-function restartGame(){
-  startGame();
-}
-
-// ══════════════════════════
-// УРОВЕНЬ 1
-// ══════════════════════════
-function buildL1Questions(){
-  const qs=[];
-  Object.keys(GD.l1).forEach(themeId=>{
-    const words = GD.l1[themeId].filter(w=>w);
-    if(words.length===0) return;
-    const allWords = Object.values(GD.l1).flat().filter(w=>w);
-    words.forEach(correct=>{
-      const wrong = shuffle(allWords.filter(w=>w!==correct)).slice(0,3);
-      if(wrong.length<3) return;
-      qs.push({
-        q: 'Выберите слово по теме «'+themeId+'»:',
-        opts: shuffle([correct,...wrong]),
-        ans: correct
-      });
-    });
-  });
-  return shuffle(qs).slice(0,10);
-}
-
-function startLevel1(){
-  state.questions = buildL1Questions();
-  if(state.questions.length===0){ startLevel2(); return; }
-  state.qIdx=0;
-  state.answered=false;
-  showScreen('l1');
-  showL1Question();
-}
-
-function showL1Question(){
-  if(state.qIdx>=state.questions.length){ endLevel1(); return; }
-  const q=state.questions[state.qIdx];
-  state.answered=false;
-  document.getElementById('l1-q').textContent=q.q;
-  document.getElementById('l1-prog').textContent=
-    'Вопрос '+(state.qIdx+1)+' из '+state.questions.length;
-  document.getElementById('l1-score').textContent=state.score;
-  updateHearts('l1');
-  const opts=document.getElementById('l1-opts');
-  opts.innerHTML=q.opts.map(o=>
-    \`<div class="opt" onclick="answerL1('\${o.replace(/'/g,"\\\\'")}')"> \${o}</div>\`
-  ).join('');
-  startTimer('l1',()=>{
-    if(!state.answered) wrongAnswer('l1');
-  });
-}
-
-function answerL1(chosen){
-  if(state.answered) return;
-  state.answered=true;
-  stopTimer();
-  const q=state.questions[state.qIdx];
-  const opts=document.querySelectorAll('#l1-opts .opt');
-  opts.forEach(o=>{
-    if(o.textContent.trim()===q.ans) o.classList.add('correct');
-    else if(o.textContent.trim()===chosen) o.classList.add('wrong');
-  });
-  if(chosen===q.ans){
-    state.score+=10;
-    state.coins+=2;
-    document.getElementById('l1-score').textContent=state.score;
-    setTimeout(()=>{ state.qIdx++; showL1Question(); },900);
-  } else {
-    wrongAnswer('l1');
-  }
-}
-
-function wrongAnswer(prefix){
-  state.lives--;
-  updateHearts(prefix);
-  stopTimer();
-  if(state.lives<=0){ showResult(false); return; }
-  setTimeout(()=>{ state.qIdx++; showL1Question(); },900);
-}
-
-function endLevel1(){
-  stopTimer();
-  state.petStage=Math.min(1,GD.pets.length-1);
-  showShop(2);
-}
-
-// ══════════════════════════
-// УРОВЕНЬ 2
-// ══════════════════════════
-function buildL2Questions(){
-  const qs=[];
-  const allNouns=Object.values(GD.l2).flat().map(p=>p.n).filter(n=>n);
-  Object.keys(GD.l2).forEach(themeId=>{
-    const pairs=GD.l2[themeId].filter(p=>p.v&&p.n);
-    pairs.forEach(pair=>{
-      const wrong=shuffle(allNouns.filter(n=>n!==pair.n)).slice(0,3);
-      if(wrong.length<3) return;
-      qs.push({
-        q:'Подберите дополнение к: «'+pair.v+'»',
-        opts:shuffle([pair.n,...wrong]),
-        ans:pair.n
-      });
-    });
-  });
-  return shuffle(qs).slice(0,10);
-}
-
-function startLevel2(){
-  state.questions=buildL2Questions();
-  if(state.questions.length===0){ startLevel3(); return; }
-  state.qIdx=0;
-  state.answered=false;
-  state.lives=GD.settings.lives;
-  showScreen('l2');
-  showL2Question();
-}
-
-function showL2Question(){
-  if(state.qIdx>=state.questions.length){ endLevel2(); return; }
-  const q=state.questions[state.qIdx];
-  state.answered=false;
-  document.getElementById('l2-q').textContent=q.q;
-  document.getElementById('l2-prog').textContent=
-    'Вопрос '+(state.qIdx+1)+' из '+state.questions.length;
-  document.getElementById('l2-score').textContent=state.score;
-  updateHearts('l2');
-  const opts=document.getElementById('l2-opts');
-  opts.innerHTML=q.opts.map(o=>
-  `<div class="opt" onclick="answerL2('${o.replace(/'/g,"\\'")}'">${o}</div>`
-).join('');
-  startTimer('l2',()=>{
-    if(!state.answered) wrongAnswerL2();
-  });
-}
-
-function answerL2(chosen){
-  if(state.answered) return;
-  state.answered=true;
-  stopTimer();
-  const q=state.questions[state.qIdx];
-  const opts=document.querySelectorAll('#l2-opts .opt');
-  opts.forEach(o=>{
-    if(o.textContent.trim()===q.ans) o.classList.add('correct');
-    else if(o.textContent.trim()===chosen) o.classList.add('wrong');
-  });
-  if(chosen===q.ans){
-    state.score+=15;
-    state.coins+=3;
-    document.getElementById('l2-score').textContent=state.score;
-    setTimeout(()=>{ state.qIdx++; showL2Question(); },900);
-  } else {
-    wrongAnswerL2();
-  }
-}
-
-function wrongAnswerL2(){
-  state.lives--;
-  updateHearts('l2');
-  if(state.lives<=0){ stopTimer(); showResult(false); return; }
-  setTimeout(()=>{ state.qIdx++; showL2Question(); },900);
-}
-
-function endLevel2(){
-  stopTimer();
-  state.petStage=Math.min(2,GD.pets.length-1);
-  showShop(3);
-}
-
-// ══════════════════════════
-// УРОВЕНЬ 3
-// ══════════════════════════
-function startLevel3(){
-  const all=GD.l3.filter(p=>p.text&&p.ans);
-  state.questions=shuffle(all).slice(0,5);
-  if(state.questions.length===0){ showResult(true); return; }
-  state.qIdx=0;
-  state.lives=GD.settings.lives;
-  showScreen('l3');
-  showL3Question();
-}
-
-function showL3Question(){
-  if(state.qIdx>=state.questions.length){ endLevel3(); return; }
-  const q=state.questions[state.qIdx];
-  state.answered=false;
-  document.getElementById('l3-q').textContent=q.text;
-  document.getElementById('l3-prog').textContent=
-    'Вопрос '+(state.qIdx+1)+' из '+state.questions.length;
-  document.getElementById('l3-score').textContent=state.score;
-  document.getElementById('l3-input').value='';
-  document.getElementById('l3-input').focus();
-  updateHearts('l3');
-  startTimer('l3',()=>{
-    if(!state.answered) wrongAnswerL3();
-  });
-}
-
-function checkL3(){
-  if(state.answered) return;
-  const input=document.getElementById('l3-input');
-  const given=input.value.trim().toLowerCase();
-  const q=state.questions[state.qIdx];
-  const correct=q.ans.trim().toLowerCase();
-  state.answered=true;
-  stopTimer();
-  if(given===correct){
-    state.score+=20;
-    state.coins+=5;
-    input.style.borderColor='var(--gr)';
-    document.getElementById('l3-score').textContent=state.score;
-    setTimeout(()=>{ input.style.borderColor=''; state.qIdx++; showL3Question(); },900);
-  } else {
-    input.style.borderColor='var(--re)';
-    wrongAnswerL3();
-  }
-}
-
-function wrongAnswerL3(){
-  state.lives--;
-  updateHearts('l3');
-  if(state.lives<=0){ stopTimer(); showResult(false); return; }
-  setTimeout(()=>{
-    document.getElementById('l3-input').style.borderColor='';
-    state.qIdx++;
-    showL3Question();
-  },900);
-}
-
-function endLevel3(){
-  stopTimer();
-  state.petStage=Math.min(3,GD.pets.length-1);
-  showResult(true);
-}
-
-// ══════════════════════════
-// МАГАЗИН
-// ══════════════════════════
-function showShop(nextLevel){
-  state._nextLevel=nextLevel;
-  updatePetDisplay(['shop-pet']);
-  const p=getPet();
-  document.getElementById('shop-pet-name').textContent=p.stage||'Питомец';
-  document.getElementById('shop-coins').textContent=state.coins;
-  updateNeedBars();
-  const sg=document.getElementById('shop-items');
-  sg.innerHTML=GD.shop.map((item,i)=>
-    \`<div class="shop-btn" onclick="buyItem(\${i})">
-      <div class="ico">\${item.ico}</div>
-      <div style="font-size:10px">\${item.name}</div>
-      <div class="price">💰\${item.price}</div>
-    </div>\`
-  ).join('');
-  showScreen('shop');
-}
-
-function buyItem(idx){
-  const item=GD.shop[idx];
-  if(state.coins<item.price){ return; }
-  state.coins -= item.price;
-  state.needs[item.effect]=Math.min(100,(state.needs[item.effect]||0)+20);
-  document.getElementById('shop-coins').textContent=state.coins;
-  updateNeedBars();
-}
-
-function updateNeedBars(){
-  ['hunger','fun','hygiene','health'].forEach(k=>{
-    const el=document.getElementById('bar-'+k);
-    if(el) el.style.height=(state.needs[k]||0)+'%';
-  });
-}
-
-function continueFromShop(){
-  const nl=state._nextLevel;
-  if(nl===2) startLevel2();
-  else if(nl===3) startLevel3();
-  else showResult(true);
-}
-
-// ══════════════════════════
-// РЕЗУЛЬТАТ
-// ══════════════════════════
-function showResult(win){
-  stopTimer();
-  state.petStage=win?Math.min(4,GD.pets.length-1):state.petStage;
-  updatePetDisplay(['res-pet']);
-  const p=getPet();
-  document.getElementById('res-emoji').textContent=win?'🎉':'😢';
-  document.getElementById('res-title').textContent=
-    win?(GD.ui.win||'🎉 Молодец!'):(GD.ui.lose||'😢 Попробуй ещё раз!');
-  document.getElementById('res-score').textContent=state.score+' очков';
-  document.getElementById('res-msg').textContent=
-    win?('Питомец эволюционировал в '+p.stage+'!')
-       :('Набрано монет: '+state.coins);
-  showScreen('result');
-  if(win && ${u.confetti}) launchConfetti();
-}
-
-// ══════════════════════════
-// КОНФЕТТИ
-// ══════════════════════════
-function launchConfetti(){
-  const colors=['#7c3aed','#ec4899','#22c55e','#f59e0b','#06b6d4'];
-  for(let i=0;i<80;i++){
-    setTimeout(()=>{
-      const el=document.createElement('div');
-      el.style.cssText=\`position:fixed;top:-10px;left:\${Math.random()*100}vw;
-        width:8px;height:8px;background:\${colors[Math.floor(Math.random()*colors.length)]};
-        border-radius:\${Math.random()>0.5?'50%':'2px'};
-        animation:fall \${1.5+Math.random()*2}s linear forwards;
-        transform:rotate(\${Math.random()*360}deg);z-index:9999\`;
-      document.body.appendChild(el);
-      setTimeout(()=>el.remove(),4000);
-    },i*30);
-  }
-  if(!document.getElementById('confetti-style')){
-    const st=document.createElement('style');
-    st.id='confetti-style';
-    st.textContent=\`@keyframes fall{
-      from{transform:translateY(0) rotate(0deg);opacity:1}
-      to{transform:translateY(110vh) rotate(720deg);opacity:0}
-    }\`;
-    document.head.appendChild(st);
-  }
-}
-
-// ══════════════════════════
-// КЛАВИША ENTER для ур.3
-// ══════════════════════════
-document.addEventListener('keydown',e=>{
-  if(e.key==='Enter' && state.screen==='l3') checkL3();
-});
-
-// СТАРТ
-updatePetDisplay(['pet-start']);
-</script>
+setPetAll();
+<\/script>
 </body>
 </html>`;
-}
-// ══════════════════════════════════════════════
-//  ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
-// ══════════════════════════════════════════════
 
-function val(id){
-  const el=document.getElementById(id);
-  if(!el) return '';
-  return el.value||'';
-}
-
-function set(id,v){
-  const el=document.getElementById(id);
-  if(!el) return;
-  el.value=v||'';
-}
-
-function chk(id){
-  const el=document.getElementById(id);
-  return el?el.checked:false;
-}
-
-function setCk(id,v){
-  const el=document.getElementById(id);
-  if(el) el.checked=!!v;
-}
-
-function esc(str){
-  if(!str) return '';
-  return String(str)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#39;');
-}
-
-function download(name,content,type){
+  const blob=new Blob([html],{type:'text/html'});
   const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([content],{type}));
-  a.download=name;
+  a.href=URL.createObjectURL(blob);
+  a.download=(state.title||'tamagotchi')+'.html';
   a.click();
-  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  toast('🚀 Игра экспортирована!','ok');
 }
 
-// ══════════════════════════════════════════════
-//  ТОСТЫ
-// ══════════════════════════════════════════════
+// ============================================================
+// ЭКСПОРТ JSON
+// ============================================================
+function exportJSON(){
+  sync();
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='tamagotchi-data.json';
+  a.click();
+  toast('📋 JSON экспортирован!','ok');
+}
 
-function toast(msg,type='gr'){
-  const colors={
-    gr:'#22c55e',ye:'#f59e0b',re:'#ef4444',pu:'#7c3aed'
-  };
+function copyJSON(){
+  sync();
+  navigator.clipboard.writeText(JSON.stringify(state,null,2))
+    .then(()=>toast('📋 JSON скопирован!','ok'))
+    .catch(()=>toast('❌ Ошибка копирования','err'));
+}
+
+// ============================================================
+// ТОСТЫ
+// ============================================================
+function toast(msg,type='info'){
+  const c=document.getElementById('toasts');
   const t=document.createElement('div');
-  t.style.cssText=`
-    background:${colors[type]||colors.gr};color:#fff;
-    padding:8px 14px;border-radius:99px;font-size:11px;font-weight:700;
-    pointer-events:auto;cursor:pointer;white-space:nowrap;
-    animation:slideIn .25s ease forwards;
-    box-shadow:0 4px 12px rgba(0,0,0,.4);
-  `;
+  t.className='toast '+type;
   t.textContent=msg;
-  t.onclick=()=>t.remove();
-  document.getElementById('toasts').appendChild(t);
-  setTimeout(()=>{
-    t.style.animation='fadeOut .3s ease forwards';
-    setTimeout(()=>t.remove(),300);
-  },2800);
+  c.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
 }
 
-// ══════════════════════════════════════════════
-//  ИНИЦИАЛИЗАЦИЯ
-// ══════════════════════════════════════════════
-
-initProject();
-renderAll();
-
-// Автосохранение в localStorage каждые 30 сек
-setInterval(()=>{
-  saveCurrent();
-  try{
-    localStorage.setItem('tama-editor-autosave',JSON.stringify(project));
-  } catch(e){}
-},30000);
-
-// Восстановление из localStorage
-(function(){
-  try{
-    const saved=localStorage.getItem('tama-editor-autosave');
-    if(saved){
-      const data=JSON.parse(saved);
-      if(data&&data.langs&&data.meta){
-        project=data;
-        renderAll();
-        toast('🔄 Автосохранение восстановлено','pu');
-      }
-    }
-  } catch(e){}
-})();
-
+// ============================================================
+// ЗАПУСК
+// ============================================================
+init();
 </script>
 </body>
 </html>
-```
